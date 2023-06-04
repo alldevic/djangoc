@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  dj_back:
+    build:
+      context: .
+    container_name: dj_back
+    env_file: .env
+    user: ${CURRENT_UID}
+    restart: on-failure
+    volumes:
+      - .:/app
+      - /app/.venv
+    ports:
+      - 8000:8000
+    links:
+      - dj_redis
+    depends_on:
+      - dj_redis
+    command: >
+      src/manage.py runserver 0.0.0.0:8000
+#      gunicorn --workers=1 -k eventlet --reload --bind 0.0.0.0:8000 --chdir /app/src/ src.djangoc.wsgi
+  dj_postgres:
+    container_name: dj_postgres
+    env_file: .env
+    image: postgres:15.3
+    restart: on-failure
+    volumes:
+      - dj_db_data:/var/lib/postgresql/data
+
+  dj_redis:
+    container_name: dj_redis
+    image: redis:7.0
+    restart: on-failure
+
+  dj_celery_worker:
+    build:
+      context: .
+    container_name: dj_celery_worker
+    env_file: .env
+    user: ${CURRENT_UID}
+    restart: on-failure
+    working_dir: /app/src
+    volumes:
+      - .:/app
+      - /app/.venv
+    links:
+      - dj_redis
+    # deploy:
+    #   mode: replicated
+    #   replicas: 6
+    command: >
+      celery -A djangoc worker -P eventlet -c 100 -l INFO
+
+volumes:
+  dj_db_data:
+    external: true

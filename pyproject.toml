@@ -1,0 +1,75 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "djangoc"
+version = "0.1.0"
+description = ""
+authors = ["Nikolay Bely <belyynikolay@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+celery = { version = "5.3.1", extras = ["eventlet", "redis"] }
+django = "4.2.4"
+django-celery-beat = "2.5.0"
+django-celery-results = "2.5.1"
+django-debug-toolbar = "4.1.0"
+django-redisboard = "8.4.0"
+docutils = "0.20.1"
+eventlet = "0.33.3"
+gunicorn = { version = "21.2.0", extras = ["eventlet"] }
+jinja2 = "3.1.2"
+psycopg2-binary = "2.9.7"
+django-jinja = "^2.10.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "23.7.0"
+pre-commit = "3.3.3"
+ruff = "0.0.282"
+
+[tool.black]
+target-version = ["py311"]
+# verbose = true
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
+reportGeneralTypeIssues = false
+
+[tool.ruff]
+select = [
+    "E",
+    "F",
+    "W",
+    "C",
+    "I",
+    "D",
+    "UP",
+    "YTT",
+    "ANN",
+    "B",
+    "COM",
+    "C4",
+    "PT",
+    "RET",
+    "SIM",
+    "ARG",
+    "PTH",
+    "PL",
+    "TRY",
+    "RUF",
+]
+respect-gitignore = true
+src = ["src"]
+target-version = "py311"
+
+[tool.ruff.flake8-pytest-style]
+fixture-parentheses = true
+mark-parentheses = true
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
