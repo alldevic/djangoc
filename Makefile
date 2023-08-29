@@ -36,6 +36,7 @@ black:
 
 clean:
 	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
 install: clean
 	poetry config virtualenvs.in-project true --local

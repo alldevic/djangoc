@@ -23,14 +23,14 @@ services:
   dj_postgres:
     container_name: dj_postgres
     env_file: .env
-    image: postgres:15.3
+    image: postgres:15.4
     restart: on-failure
     volumes:
       - dj_db_data:/var/lib/postgresql/data
 
   dj_redis:
     container_name: dj_redis
-    image: redis:7.0
+    image: redis:7.2
     restart: on-failure
 
   dj_celery_worker:
