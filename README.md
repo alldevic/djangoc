@@ -2,7 +2,6 @@
 
 ## TODO
 
-- djlint integration
 - debugpy support
 - pytest
 - htmx/unpoly + css + ...

@@ -8,7 +8,7 @@ include .env
 
 export PYTHONUNBUFFERED 1
 export PYTHONDONTWRITEBYTECODE 1
-export PYTHONFAULTHANDLER=1
+export PYTHONFAULTHANDLER 1
 export CURRENT_UID
 export DJANGO_DEBUG
 up:
@@ -40,6 +40,9 @@ su:
 black:
 	poetry run black .
 
+djlint:
+	poetry run djlint . --reformat
+
 clean:
 	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/*
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
@@ -51,7 +54,11 @@ install: clean
 	poetry install
 	poetry run pre-commit install
 
-lint: ruff black
+lint: ruff
+	poetry run djlint . --lint
+	poetry run black . --check
+
+format: ruff djlint black
 
 prune: clean
 	rm -rf .venv poetry.lock .vscode media/*
