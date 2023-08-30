@@ -42,6 +42,6 @@ dmypy.json
 .ruff_cache/
 .vscode/
 **/*.sqlite3
-static/*
+staticfiles/*
 media/*
 !.gitkeep

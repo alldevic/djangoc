@@ -40,8 +40,9 @@ black:
 	poetry run black .
 
 clean:
-	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage
+	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/*
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+	touch staticfiles/.gitkeep
 
 install: clean
 	poetry config virtualenvs.in-project true --local
@@ -52,8 +53,7 @@ install: clean
 lint: ruff black
 
 prune: clean
-	rm -rf .venv poetry.lock .vscode static/* media/*
-	touch static/.gitkeep
+	rm -rf .venv poetry.lock .vscode media/*
 	touch media/.gitkeep
 
 ruff:

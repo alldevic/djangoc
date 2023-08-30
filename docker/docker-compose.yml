@@ -18,8 +18,10 @@ services:
       - 8000:8000
     links:
       - dj_redis
+      - dj_postgres
     depends_on:
       - dj_redis
+      - dj_postgres
 
   dj_postgres:
     container_name: dj_postgres
@@ -50,6 +52,11 @@ services:
       - /app/.venv
     links:
       - dj_redis
+      - dj_postgres
+    depends_on:
+      - dj_redis
+      - dj_postgres
+      - dj_back
     # deploy:
     #   mode: replicated
     #   replicas: 6
