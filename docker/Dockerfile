@@ -13,7 +13,7 @@ ENV PYTHONFAULTHANDLER=1 \
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests --no-upgrade \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends --no-install-suggests --no-upgrade \
     python3.11 \
     python3-poetry \
     ca-certificates \
