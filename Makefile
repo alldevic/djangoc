@@ -1,20 +1,25 @@
+#!/usr/bin/make
+
 .PHONY: black clean install lint prune ruff shell
 .DEFAULT_GOAL := lint
 CURRENT_UID := $(shell id -u):$(shell id -g)
 
+include .env
+
 export PYTHONUNBUFFERED 1
 export PYTHONDONTWRITEBYTECODE 1
+export PYTHONFAULTHANDLER=1
 export CURRENT_UID
-
+export DJANGO_DEBUG
 up:
 	docker volume create dj_db_data
-	docker compose up -d --renew-anon-volumes --force-recreate --build --remove-orphans
+	docker compose -f docker/docker-compose.yml up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
 down:
-	docker compose down
+	docker compose -f docker/docker-compose.yml down
 
 logs:
-	docker compose logs -f
+	docker compose -f docker/docker-compose.yml logs -f
 
 sh:
 	docker exec -it /dj_back /bin/bash
