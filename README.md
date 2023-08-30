@@ -4,7 +4,6 @@
 
 - prod conf
 - entrypoint.sh
-- init redis dashboard
 - Логирование в админку
 - add tools: pgadmin4
 - debugpy support

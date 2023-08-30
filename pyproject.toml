@@ -71,6 +71,7 @@ mark-parentheses = true
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
+"**/migrations/*" = ["D100", "RUF012", "ANN001"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
