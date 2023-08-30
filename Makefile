@@ -13,10 +13,11 @@ export CURRENT_UID
 export DJANGO_DEBUG
 up:
 	docker volume create dj_db_data
+	docker compose -f docker/docker-compose.yml build --progress plain
 	docker compose -f docker/docker-compose.yml up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
 down:
-	docker compose -f docker/docker-compose.yml down
+	docker compose -f docker/docker-compose.yml down -v
 
 logs:
 	docker compose -f docker/docker-compose.yml logs -f

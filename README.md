@@ -2,17 +2,17 @@
 
 ## TODO
 
-- Логирование ошибок в админку
 - djlint integration
-- pytest
 - debugpy support
-- уменьшить количество зависимостей
-- add tools: pgadmin4
+- pytest
 - htmx/unpoly + css + ...
+- profiler for debug toolbar
+- уменьшить количество зависимостей
 - github actions
-- media?
+- add tools: pgadmin4
 - add tools: redis commander
 - add tools: celery flower
+- media?
 - task pipeline?
 - short and long task runners?
 - mypy

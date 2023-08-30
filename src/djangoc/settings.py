@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 
-def get_env(key: str, default: Any | None = None) -> Any | None:  # noqa: ANN401
+def get_env(key: str, default: Any | None = None) -> Any | None:
     """Get Environment variable by key.
 
     Args:
@@ -186,6 +186,41 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": "redis://dj_redis:6379/0",
+    },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": get_env("DJANGO_LOG_LEVEL", "INFO"),
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "core": {
+            "level": "WARNING",
+            "class": "core.handlers.AdminWatchdogHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "core"],
+            "propagate": False,
+        },
     },
 }
 

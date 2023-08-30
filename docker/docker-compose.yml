@@ -37,11 +37,7 @@ services:
     restart: on-failure
 
   dj_celery_worker:
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      args:
-        - DJANGO_DEBUG=${DJANGO_DEBUG}
+    image: docker-dj_back:latest
     container_name: dj_celery_worker
     env_file: ../.env
     user: ${CURRENT_UID}
