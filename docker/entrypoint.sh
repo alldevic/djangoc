@@ -4,37 +4,15 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-function postgres_ready() {
-    python3 <<END
-import sys
-import psycopg
-from os import environ
-def get_env(key, default=None):
-    val = environ.get(key, default)
-    if val == 'True':
-        val = True
-    elif val == 'False':
-        val = False
-    return val
-try:
-    dbname = get_env('POSTGRES_DB')
-    user = get_env('POSTGRES_USER')
-    password = get_env('POSTGRES_PASSWORD')
-    host = get_env('POSTGRES_HOST')
-    port = 5432
-    conn = psycopg.connect(dbname=dbname, user=user, password=password, host=host, port=port)
-except psycopg.OperationalError:
-    sys.exit(-1)
-sys.exit(0)
-END
-}
+echo >&2 "PostgreSQL waiting..."
 
-until postgres_ready; do
-    echo >&2 "Postgres is unavailable - sleeping"
-    sleep 1
-done
+wait-for-it \
+    --host="$POSTGRES_HOST" \
+    --port=5432 \
+    --timeout=90 \
+    --strict
 
-echo >&2 "Postgres is up - continuing..."
+echo >&2 "PostgreSQL is up - continuing..."
 
 echo >&2 "Migrating..."
 python3 src/manage.py migrate

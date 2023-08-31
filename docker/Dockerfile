@@ -17,6 +17,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     python3.11 \
     python3-poetry \
     ca-certificates \
+    wait-for-it \
     && ln -sf /usr/bin/python3.11 /usr/bin/python \
     && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*  /root/.cache/* \
