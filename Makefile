@@ -11,6 +11,7 @@ export PYTHONDONTWRITEBYTECODE 1
 export PYTHONFAULTHANDLER 1
 export CURRENT_UID
 export DJANGO_DEBUG
+
 up:
 	docker volume create dj_db_data
 	docker compose -f docker/docker-compose.yml build --progress plain

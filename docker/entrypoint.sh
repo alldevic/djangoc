@@ -44,7 +44,7 @@ python3 src/manage.py collectstatic --noinput
 
 if [[ ${DJANGO_DEBUG} == 'TRUE' ]] || [[ ${DJANGO_DEBUG} == 'True' ]] || [[ ${DJANGO_DEBUG} == '1' ]]; then
     echo >&2 "Starting development server..."
-    exec python3 src/manage.py runserver 0.0.0.0:8000 --nostatic
+    exec python3 src/manage.py rundebugserver 0.0.0.0:8000 --nostatic
 else
     echo >&2 "Starting Gunicorn..."
     exec gunicorn src.djangoc.wsgi \

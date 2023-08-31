@@ -2,10 +2,9 @@
 
 ## TODO
 
-- debugpy support
 - pytest
 - htmx/unpoly + css + ...
-- profiler for debug toolbar
+- ports for prod, media for prod
 - уменьшить количество зависимостей
 - github actions
 - add tools: pgadmin4
