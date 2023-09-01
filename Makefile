@@ -14,6 +14,7 @@ export DJANGO_DEBUG
 
 up:
 	docker volume create dj_db_data
+	docker volume create dj_s3_data
 	docker compose -f docker/docker-compose.yml build --progress plain
 	docker compose -f docker/docker-compose.yml up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
@@ -45,7 +46,7 @@ djlint:
 	poetry run djlint . --reformat
 
 clean:
-	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/*
+	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* .venv
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	touch staticfiles/.gitkeep
 
@@ -63,6 +64,8 @@ format: ruff djlint black
 
 prune: clean
 	rm -rf .venv poetry.lock .vscode media/*
+	docker volume rm dj_db_data
+	docker volume rm dj_s3_data
 	touch media/.gitkeep
 
 ruff:

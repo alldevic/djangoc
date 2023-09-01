@@ -23,18 +23,21 @@ services:
     depends_on:
       - dj_redis
       - dj_postgres
+      - dj_minio
 
   dj_postgres:
-    container_name: dj_postgres
-    env_file: ../.env
     image: postgres:15.4
+    container_name: dj_postgres
+    hostname: postgres
+    env_file: ../.env
     restart: on-failure
     volumes:
       - dj_db_data:/var/lib/postgresql/data
 
   dj_redis:
-    container_name: dj_redis
     image: redis:7.2
+    container_name: dj_redis
+    hostname: redis
     restart: on-failure
 
   dj_celery_worker:
@@ -54,12 +57,38 @@ services:
       - dj_redis
       - dj_postgres
       - dj_back
+      - dj_minio
     # deploy:
     #   mode: replicated
     #   replicas: 6
     command: >
       celery -A djangoc worker -P eventlet -c 100 -l INFO
 
+  dj_minio:
+    image: minio/minio
+    container_name: dj_minio
+    hostname: minio
+    volumes:
+      - dj_s3_data:/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=root
+      - MINIO_ROOT_PASSWORD=toortoor
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    command: >
+      server /data --console-address ":9001"
+
 volumes:
   dj_db_data:
+    external: true
+  dj_s3_data:
     external: true

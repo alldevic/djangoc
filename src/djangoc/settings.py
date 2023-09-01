@@ -185,7 +185,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://dj_redis:6379/0",
+        "LOCATION": "redis://redis:6379/0",
     },
 }
 
@@ -230,7 +230,7 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 3 * 60
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "default"
-CELERY_BROKER_URL = "redis://dj_redis:6379/1"
+CELERY_BROKER_URL = "redis://redis:6379/1"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_WORKER_MAX_MEMORY_PER_CHILD = 200_000  # KB
 

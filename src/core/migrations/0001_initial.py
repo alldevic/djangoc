@@ -13,7 +13,7 @@ def init_redisboard(apps, _schema_editor) -> None:
     RedisServer = apps.get_model("redisboard", "RedisServer")
     RedisServer(
         label="Django Redis Cache",
-        url="redis://dj_redis:6379",
+        url="redis://redis:6379",
     ).save()
 
 
