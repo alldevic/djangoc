@@ -2,18 +2,20 @@
 
 ## TODO
 
+- Persons, permissions
+- feature flags
+- https for dev
+- compose: cpu and ram limits
+- prod conf: media (s3?), ports, custom docker-compose
 - pytest
 - htmx/unpoly + css + ...
-- ports for prod, media for prod
 - уменьшить количество зависимостей
 - github actions
 - add tools: pgadmin4
 - add tools: redis commander
 - add tools: celery flower
-- media?
 - task pipeline?
 - short and long task runners?
 - mypy
-- update vscode workspace
   ...
 - squash commits
