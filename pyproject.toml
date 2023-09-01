@@ -11,7 +11,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-celery = { version = "5.3.1", extras = ["eventlet", "redis"] }
+celery = { version = "5.3.3", extras = ["eventlet", "redis"] }
 django = "4.2.4"
 django-celery-beat = "2.5.0"
 django-celery-results = "2.5.1"
