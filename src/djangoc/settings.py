@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "django_jinja",
+    "minio_storage",
     "redisboard",
     "core",
 ]
@@ -164,10 +165,13 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR.parent / "staticfiles"
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR.parent / "media"
+# MEDIA_URL = "media/"
+# MEDIA_ROOT = BASE_DIR.parent / "media"
 
 STORAGES = {
+    "default": {
+        "BACKEND": "minio_storage.storage.MinioMediaStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
@@ -233,6 +237,17 @@ CELERY_CACHE_BACKEND = "default"
 CELERY_BROKER_URL = "redis://redis:6379/1"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_WORKER_MAX_MEMORY_PER_CHILD = 200_000  # KB
+
+
+MINIO_STORAGE_ENDPOINT = "minio:9000"
+MINIO_STORAGE_ACCESS_KEY = "root"
+MINIO_STORAGE_SECRET_KEY = "toortoor"
+MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "media"
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
+MINIO_STORAGE_MEDIA_URL = "http://localhost:9000/media"
 
 if DEBUG:
     try:

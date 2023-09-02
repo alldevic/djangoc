@@ -34,3 +34,16 @@ class LogEntry(models.Model):
         _("Request representation"),
         editable=False,
     )
+
+
+class Person(models.Model):
+    """This is a demo person model."""
+
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    picture = models.ImageField(upload_to="person_pics")
+
+    def __str__(self):
+        """Default text representaion."""
+        return f"{self.first_name} {self.last_name} {self.date_of_birth!s}"

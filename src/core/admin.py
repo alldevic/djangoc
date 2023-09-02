@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from core.models import LogEntry
+from core.models import LogEntry, Person
 
 
 @admin.register(LogEntry)
@@ -54,3 +54,8 @@ class LogEntryAdmin(admin.ModelAdmin):
 
     show_request_repr.short_description = _("Request representation")
     show_request_repr.allow_tags = True
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    """Admin for test model."""

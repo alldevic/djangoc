@@ -16,11 +16,13 @@ django = "4.2.4"
 django-celery-beat = "2.5.0"
 django-celery-results = "2.5.1"
 django-jinja = "2.10.2"
+django-minio-storage = "0.5.7"
 django-redisboard = "8.4.0"
 docutils = "0.20.1"
 eventlet = "0.33.3"
 gunicorn = { version = "21.2.0", extras = ["eventlet"] }
 jinja2 = "3.1.2"
+pillow = "10.0.0"
 psycopg = { extras = ["binary"], version = "3.1.10" }
 whitenoise = { extras = ["brotli"], version = "6.5.0" }
 
@@ -30,7 +32,7 @@ debugpy = "1.6.7.post1"
 django-debug-toolbar = "4.2.0"
 djlint = "1.32.1"
 pre-commit = "3.3.3"
-ruff = "0.0.286"
+ruff = "0.0.287"
 
 [tool.black]
 target-version = ["py311"]

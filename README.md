@@ -2,6 +2,8 @@
 
 ## TODO
 
+- MiniO .env
+- MiniO backup tuning
 - Persons, permissions
 - feature flags
 - https for dev
