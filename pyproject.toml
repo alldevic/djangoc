@@ -11,7 +11,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-celery = { version = "5.3.3", extras = ["eventlet", "redis"] }
+celery = { version = "5.3.1", extras = ["eventlet", "redis"] }
 django = "4.2.4"
 django-celery-beat = "2.5.0"
 django-celery-results = "2.5.1"
@@ -31,7 +31,7 @@ black = "23.7.0"
 debugpy = "1.6.7.post1"
 django-debug-toolbar = "4.2.0"
 djlint = "1.32.1"
-pre-commit = "3.3.3"
+pre-commit = "3.4.0"
 ruff = "0.0.287"
 
 [tool.black]
