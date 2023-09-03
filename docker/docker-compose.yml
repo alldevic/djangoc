@@ -64,8 +64,32 @@ services:
     command: >
       celery -A djangoc worker -P eventlet -c 100 -l INFO
 
+  dj_celery_beat:
+    image: docker-dj_back:latest
+    container_name: dj_celery_beat
+    env_file: ../.env
+    user: ${CURRENT_UID}
+    restart: on-failure
+    working_dir: /app/src
+    volumes:
+      - ..:/app
+      - /app/.venv
+    links:
+      - dj_redis
+      - dj_postgres
+    depends_on:
+      - dj_redis
+      - dj_postgres
+      - dj_back
+      - dj_minio
+    # deploy:
+    #   mode: replicated
+    #   replicas: 6
+    command: >
+      celery -A djangoc beat -l INFO -S django_celery_beat.schedulers:DatabaseScheduler
+
   dj_minio:
-    image: minio/minio
+    image: minio/minio:RELEASE.2023-08-31T15-31-16Z
     container_name: dj_minio
     hostname: minio
     volumes:
@@ -74,8 +98,8 @@ services:
       - 9000:9000
       - 9001:9001
     environment:
-      - MINIO_ROOT_USER=root
-      - MINIO_ROOT_PASSWORD=toortoor
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
     deploy:
       resources:
         limits:

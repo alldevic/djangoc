@@ -20,7 +20,7 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
 
-@app.task(bind=True, ignore_result=True)
+@app.task(bind=True, ignore_result=False)
 def debug_task(self: Self) -> None:
     """Test task.
 
@@ -28,3 +28,4 @@ def debug_task(self: Self) -> None:
         self: request
     """
     print(f"Request: {self.request!r}")
+    return str(self.request)

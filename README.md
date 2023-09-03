@@ -2,8 +2,10 @@
 
 ## TODO
 
-- MiniO .env
-- MiniO backup tuning
+- Celery entrpoint.sh with wait, beat/worker sep
+- Celery correct info from beat task
+
+- Check MiniO recycle bin, fix admin delete
 - Persons, permissions
 - feature flags
 - https for dev

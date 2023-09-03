@@ -11,6 +11,8 @@ export PYTHONDONTWRITEBYTECODE 1
 export PYTHONFAULTHANDLER 1
 export CURRENT_UID
 export DJANGO_DEBUG
+export MINIO_ACCESS_KEY
+export MINIO_SECRET_KEY
 
 up:
 	docker volume create dj_db_data
@@ -63,10 +65,9 @@ lint: ruff
 format: ruff djlint black
 
 prune: clean
-	rm -rf .venv poetry.lock .vscode media/*
+	rm -rf poetry.lock .vscode
 	docker volume rm dj_db_data
 	docker volume rm dj_s3_data
-	touch media/.gitkeep
 
 ruff:
 	poetry run ruff check .

@@ -11,6 +11,9 @@ wait-for-it \
     --timeout=90 \
     --strict
 
+echo >&2 "Init MiniO buckets..."
+python3 src/manage.py init_minio
+
 echo >&2 "PostgreSQL waiting..."
 wait-for-it \
     --host="$POSTGRES_HOST" \

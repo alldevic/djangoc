@@ -26,10 +26,10 @@ def get_env(key: str, default: Any | None = None) -> Any | None:
     """
     val = environ.get(key, default)
 
-    if val in ("True", "true"):
+    if val in ("TRUE", "True", "true"):
         return True
 
-    if val in ("False", "false"):
+    if val in ("FALSE", "False", "false"):
         return False
 
     return val
@@ -52,7 +52,7 @@ SECRET_KEY = SECRET_KEY = get_env(
 DEBUG = get_env("DJANGO_DEBUG", True)
 
 ALLOWED_HOSTS = ALLOWED_HOSTS = [
-    get_env("DJANGO_DOMAIN_NAME", "dj.localhost"),
+    get_env("SITE_DOMAIN_NAME", "dj.localhost"),
     "localhost",
     "0.0.0.0",
     "127.0.0.1",
@@ -165,9 +165,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR.parent / "staticfiles"
 
-# MEDIA_URL = "media/"
-# MEDIA_ROOT = BASE_DIR.parent / "media"
-
 STORAGES = {
     "default": {
         "BACKEND": "minio_storage.storage.MinioMediaStorage",
@@ -240,14 +237,13 @@ CELERY_WORKER_MAX_MEMORY_PER_CHILD = 200_000  # KB
 
 
 MINIO_STORAGE_ENDPOINT = "minio:9000"
-MINIO_STORAGE_ACCESS_KEY = "root"
-MINIO_STORAGE_SECRET_KEY = "toortoor"
-MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_ACCESS_KEY = get_env("MINIO_ACCESS_KEY", "accesskey")
+MINIO_STORAGE_SECRET_KEY = get_env("MINIO_SECRET_KEY", "secretkey")
+MINIO_STORAGE_USE_HTTPS = get_env("SITE_USE_HTTPS", False)
 MINIO_STORAGE_MEDIA_BUCKET_NAME = "media"
-MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
-MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "recyclebin"
 MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
-MINIO_STORAGE_MEDIA_URL = "http://localhost:9000/media"
+MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "http://localhost:9000/media")
 
 if DEBUG:
     try:
