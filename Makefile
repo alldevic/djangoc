@@ -15,8 +15,8 @@ export MINIO_ACCESS_KEY
 export MINIO_SECRET_KEY
 
 up:
-	docker volume create dj_db_data
-	docker volume create dj_s3_data
+	docker volume create djc_db_data
+	docker volume create djc_s3_data
 	docker compose -f docker/docker-compose.yml build --progress plain
 	docker compose -f docker/docker-compose.yml up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
@@ -27,19 +27,19 @@ logs:
 	docker compose -f docker/docker-compose.yml logs -f
 
 sh:
-	docker exec -it /dj_back /bin/bash
+	docker exec -it /djc_back /bin/bash
 
 migrations:
-	docker exec -it /dj_back server/manage.py makemigrations
+	docker exec -it /djc_back server/manage.py makemigrations
 
 migrate:
-	docker exec -it /dj_back server/manage.py migrate
+	docker exec -it /djc_back server/manage.py migrate
 
 static:
-	docker exec -it /dj_back server/manage.py collectstatic
+	docker exec -it /djc_back server/manage.py collectstatic
 
 su:
-	docker exec -it /dj_back server/manage.py createsuperuser
+	docker exec -it /djc_back server/manage.py createsuperuser
 
 black:
 	poetry run black .
@@ -66,8 +66,8 @@ format: ruff djlint black
 
 prune: clean
 	rm -rf poetry.lock .vscode
-	docker volume rm dj_db_data
-	docker volume rm dj_s3_data
+	docker volume rm djc_db_data
+	docker volume rm djc_s3_data
 
 ruff:
 	poetry run ruff check .

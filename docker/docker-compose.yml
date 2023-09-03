@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  dj_back:
+  djc_back:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
         - DEBUG=${DJANGO_DEBUG}
-    container_name: dj_back
+    container_name: djc_back
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
@@ -18,33 +18,33 @@ services:
       - 8000:8000
       - 5678:5678
     links:
-      - dj_redis
-      - dj_postgres
+      - djc_redis
+      - djc_postgres
     depends_on:
-      - dj_redis
-      - dj_postgres
-      - dj_minio
+      - djc_redis
+      - djc_postgres
+      - djc_minio
     command: >
       /app/docker/entrypoint-back.sh
 
-  dj_postgres:
+  djc_postgres:
     image: postgres:15.4
-    container_name: dj_postgres
+    container_name: djc_postgres
     hostname: postgres
     env_file: ../.env
     restart: on-failure
     volumes:
-      - dj_db_data:/var/lib/postgresql/data
+      - djc_db_data:/var/lib/postgresql/data
 
-  dj_redis:
+  djc_redis:
     image: redis:7.2
-    container_name: dj_redis
+    container_name: djc_redis
     hostname: redis
     restart: on-failure
 
-  dj_celery_worker:
-    image: docker-dj_back:latest
-    container_name: dj_celery_worker
+  djc_celery_worker:
+    image: docker-djc_back:latest
+    container_name: djc_celery_worker
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
@@ -53,22 +53,22 @@ services:
       - ..:/app
       - /app/.venv
     links:
-      - dj_redis
-      - dj_postgres
+      - djc_redis
+      - djc_postgres
     depends_on:
-      - dj_redis
-      - dj_postgres
-      - dj_back
-      - dj_minio
+      - djc_redis
+      - djc_postgres
+      - djc_back
+      - djc_minio
     # deploy:
     #   mode: replicated
     #   replicas: 6
     command: >
       /app/docker/entrypoint-worker.sh
 
-  dj_celery_beat:
-    image: docker-dj_back:latest
-    container_name: dj_celery_beat
+  djc_celery_beat:
+    image: docker-djc_back:latest
+    container_name: djc_celery_beat
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
@@ -77,22 +77,22 @@ services:
       - ..:/app
       - /app/.venv
     links:
-      - dj_redis
-      - dj_postgres
+      - djc_redis
+      - djc_postgres
     depends_on:
-      - dj_redis
-      - dj_postgres
-      - dj_back
-      - dj_minio
+      - djc_redis
+      - djc_postgres
+      - djc_back
+      - djc_minio
     command: >
       /app/docker/entrypoint-beat.sh
 
-  dj_minio:
+  djc_minio:
     image: minio/minio:RELEASE.2023-08-31T15-31-16Z
-    container_name: dj_minio
+    container_name: djc_minio
     hostname: minio
     volumes:
-      - dj_s3_data:/data
+      - djc_s3_data:/data
     ports:
       - 9000:9000
       - 9001:9001
@@ -111,7 +111,7 @@ services:
       server /data --console-address ":9001"
 
 volumes:
-  dj_db_data:
+  djc_db_data:
     external: true
-  dj_s3_data:
+  djc_s3_data:
     external: true
