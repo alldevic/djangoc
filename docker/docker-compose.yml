@@ -24,6 +24,8 @@ services:
       - dj_redis
       - dj_postgres
       - dj_minio
+    command: >
+      /app/docker/entrypoint-back.sh
 
   dj_postgres:
     image: postgres:15.4
@@ -62,7 +64,7 @@ services:
     #   mode: replicated
     #   replicas: 6
     command: >
-      celery -A djangoc worker -P eventlet -c 100 -l INFO
+      /app/docker/entrypoint-worker.sh
 
   dj_celery_beat:
     image: docker-dj_back:latest
@@ -82,11 +84,8 @@ services:
       - dj_postgres
       - dj_back
       - dj_minio
-    # deploy:
-    #   mode: replicated
-    #   replicas: 6
     command: >
-      celery -A djangoc beat -l INFO -S django_celery_beat.schedulers:DatabaseScheduler
+      /app/docker/entrypoint-beat.sh
 
   dj_minio:
     image: minio/minio:RELEASE.2023-08-31T15-31-16Z
