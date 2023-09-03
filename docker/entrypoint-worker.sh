@@ -6,4 +6,4 @@ set -o pipefail
 
 bash -c /app/docker/entrypoint.sh
 
-celery -A djangoc worker -P eventlet -c 100 -l INFO
+celery -A config worker -P eventlet -c 100 -l INFO

@@ -48,7 +48,7 @@ services:
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
-    working_dir: /app/src
+    working_dir: /app/server
     volumes:
       - ..:/app
       - /app/.venv
@@ -72,7 +72,7 @@ services:
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
-    working_dir: /app/src
+    working_dir: /app/server
     volumes:
       - ..:/app
       - /app/.venv

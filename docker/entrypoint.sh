@@ -20,7 +20,7 @@ wait-for-it \
 echo >&2 "PostgreSQL is up - continuing..."
 
 echo >&2 "Migrating..."
-python3 /app/src/manage.py migrate
+python3 /app/server/manage.py migrate
 
 echo >&2 "Init MiniO buckets..."
-python3 /app/src/manage.py init_minio
+python3 /app/server/manage.py init_minio

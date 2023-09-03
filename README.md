@@ -1,9 +1,9 @@
 # DjangoC
 
 ## TODO
-
-- Celery correct info from beat task
+- CELERY_RESULT_EXPIRES to 1 week
 - Check MiniO recycle bin, fix admin delete
+- Check logging errors to admin in tasks
 - Persons, permissions
 - feature flags
 - https for dev

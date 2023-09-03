@@ -30,16 +30,16 @@ sh:
 	docker exec -it /dj_back /bin/bash
 
 migrations:
-	docker exec -it /dj_back src/manage.py makemigrations
+	docker exec -it /dj_back server/manage.py makemigrations
 
 migrate:
-	docker exec -it /dj_back src/manage.py migrate
+	docker exec -it /dj_back server/manage.py migrate
 
 static:
-	docker exec -it /dj_back src/manage.py collectstatic
+	docker exec -it /dj_back server/manage.py collectstatic
 
 su:
-	docker exec -it /dj_back src/manage.py createsuperuser
+	docker exec -it /dj_back server/manage.py createsuperuser
 
 black:
 	poetry run black .
@@ -48,7 +48,7 @@ djlint:
 	poetry run djlint . --reformat
 
 clean:
-	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* .venv
+	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* .venv dist
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	touch staticfiles/.gitkeep
 

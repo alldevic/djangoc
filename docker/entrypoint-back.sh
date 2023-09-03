@@ -7,18 +7,18 @@ set -o pipefail
 bash -c /app/docker/entrypoint.sh
 
 echo >&2 "Collect static..."
-python3 /app/src/manage.py collectstatic --noinput
+python3 /app/server/manage.py collectstatic --noinput
 
 if [[ ${DJANGO_DEBUG} == 'TRUE' ]] || [[ ${DJANGO_DEBUG} == 'True' ]] || [[ ${DJANGO_DEBUG} == '1' ]]; then
     echo >&2 "Starting development server..."
-    exec python3 /app/src/manage.py rundebugserver 0.0.0.0:8000 --nostatic
+    exec python3 /app/server/manage.py rundebugserver 0.0.0.0:8000 --nostatic
 else
     echo >&2 "Starting Gunicorn..."
-    exec gunicorn src.djangoc.wsgi \
-        --chdir /app/src/ \
+    exec gunicorn server.config.wsgi \
+        --chdir /app/server/ \
         -k eventlet \
         --access-logfile - \
-        --name djangoc \
+        --name config \
         --bind 0.0.0.0:8000 \
         --max-requests 100 \
         --workers=2

@@ -3,7 +3,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "djangoc"
+name = "server"
 version = "0.1.0"
 description = ""
 authors = ["Nikolay Bely <belyynikolay@gmail.com>"]
@@ -75,7 +75,7 @@ select = [
     "RUF",
 ]
 respect-gitignore = true
-src = ["src"]
+src = ["server"]
 target-version = "py311"
 
 [tool.ruff.flake8-pytest-style]

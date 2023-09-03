@@ -6,4 +6,4 @@ set -o pipefail
 
 bash -c /app/docker/entrypoint.sh
 
-celery -A djangoc beat -l INFO -S django_celery_beat.schedulers:DatabaseScheduler
+celery -A config beat -l INFO -S django_celery_beat.schedulers:DatabaseScheduler
