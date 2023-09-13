@@ -9,6 +9,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import importlib
 from os import environ
 from pathlib import Path
 from typing import Any
@@ -49,7 +50,9 @@ SECRET_KEY = SECRET_KEY = get_env(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_env("DJANGO_DEBUG", True)
+DEBUG = get_env("DJANGO_DEBUG", False)
+USE_DJDT = get_env("DJANGO_USE_DJDT", False)
+USE_PYINSTRUMENT = get_env("DJANGO_USE_PYINSTRUMENT", False)
 
 ALLOWED_HOSTS = ALLOWED_HOSTS = [
     get_env("SITE_DOMAIN_NAME", "dj.localhost"),
@@ -246,18 +249,26 @@ MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "recyclebin"
 MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
 MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "http://localhost:9000/media")
 
+
 if DEBUG:
-    try:
-        INSTALLED_APPS.append("debug_toolbar")
-        MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    if USE_DJDT:
+        try:
+            INSTALLED_APPS.append("debug_toolbar")
+            MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
-        import socket
+            import socket
 
-        hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-        INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
-            "127.0.0.1",
-            "10.0.2.2",
-        ]
-        DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda _request: DEBUG}
-    except ImportError:
-        pass
+            hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+            INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
+                "127.0.0.1",
+                "10.0.2.2",
+            ]
+            DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda _request: DEBUG}
+        except ImportError:
+            pass
+
+    if USE_PYINSTRUMENT and importlib.util.find_spec("pyinstrument"):
+        importlib.util.find_spec("pyinstrument")
+
+        MIDDLEWARE.insert(1, "pyinstrument.middleware.ProfilerMiddleware")
+        PYINSTRUMENT_PROFILE_DIR = "/app/profiles"

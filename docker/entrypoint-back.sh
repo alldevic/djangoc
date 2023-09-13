@@ -16,8 +16,13 @@ echo >&2 "Collect static..."
 python3 /app/server/manage.py collectstatic --noinput
 
 if [[ ${DJANGO_DEBUG} == 'TRUE' ]] || [[ ${DJANGO_DEBUG} == 'True' ]] || [[ ${DJANGO_DEBUG} == '1' ]]; then
-    echo >&2 "Starting development server..."
-    exec python3 /app/server/manage.py rundebugserver 0.0.0.0:8000 --nostatic
+    if [[ ${DJANGO_USE_DEBUGPY} == 'TRUE' ]] || [[ ${DJANGO_USE_DEBUGPY} == 'True' ]] || [[ ${DJANGO_USE_DEBUGPY} == '1' ]]; then
+        echo >&2 "Starting debugpy server..."
+        exec python3 /app/server/manage.py rundebugserver 0.0.0.0:8000 --nostatic
+    else
+        echo >&2 "Starting development server..."
+        exec python3 /app/server/manage.py runserver 0.0.0.0:8000 --nostatic
+    fi
 else
     echo >&2 "Starting Gunicorn..."
     exec gunicorn server.config.wsgi \

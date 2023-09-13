@@ -28,7 +28,7 @@ urlpatterns = [
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG and settings.USE_DJDT:
     try:
         import debug_toolbar
 

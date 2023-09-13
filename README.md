@@ -1,6 +1,7 @@
 # DjangoC
 
 ## TODO
+- profiling: memray
 - CELERY_RESULT_EXPIRES to 1 week
 - Check MiniO recycle bin, fix admin delete
 - Check logging errors to admin in tasks
@@ -9,6 +10,7 @@
 - https for dev
 - compose: cpu and ram limits
 - prod conf: media (s3?), ports, custom docker-compose
+- prod conf: pyinstrument
 - pytest
 - htmx/unpoly + css + ...
 - уменьшить количество зависимостей

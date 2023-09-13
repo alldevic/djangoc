@@ -85,9 +85,11 @@ djlint:
 	poetry run djlint . --reformat
 
 clean:
-	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* .venv dist tools/pgadmin4/home/*
+	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* dist
+	rm -rf profiles/* tools/pgadmin4/home/*
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	touch staticfiles/.gitkeep
+	touch profiles/.gitkeep
 	touch tools/pgadmin4/home/.gitkeep
 
 install: clean
@@ -96,19 +98,20 @@ install: clean
 	poetry install
 	poetry run pre-commit install
 
-lint: ruff
+lint:
+	poetry run ruff check .
 	poetry run djlint . --lint
 	poetry run black . --check
 
 format: ruff djlint black
 
 prune: clean
-	rm -rf poetry.lock .vscode
+	rm -rf poetry.lock .vscode .venv
 	docker volume rm djc_db_data
 	docker volume rm djc_s3_data
 
 ruff:
-	poetry run ruff check .
+	poetry run ruff check --fix .
 
 shell:
 	poetry shell --quiet

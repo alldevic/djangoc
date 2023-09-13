@@ -47,4 +47,5 @@ media/*
 tools/pgadmin4/servers.json
 tools/**/home/*
 dist/
+profiles/*
 !.gitkeep
