@@ -18,9 +18,3 @@ wait-for-it \
     --timeout=90 \
     --strict
 echo >&2 "PostgreSQL is up - continuing..."
-
-echo >&2 "Migrating..."
-python3 /app/server/manage.py migrate
-
-echo >&2 "Init MiniO buckets..."
-python3 /app/server/manage.py init_minio

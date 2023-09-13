@@ -13,8 +13,9 @@
 - htmx/unpoly + css + ...
 - уменьшить количество зависимостей
 - github actions
-- add tools: pgadmin4
+- refact Makefile
 - add tools: redis commander
+- tools pgadmin4: update config witwhout prune
 - add tools: celery flower
 - task pipeline?
 - short and long task runners?

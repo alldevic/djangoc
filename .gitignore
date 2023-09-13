@@ -44,5 +44,7 @@ dmypy.json
 **/*.sqlite3
 staticfiles/*
 media/*
-!.gitkeep
+tools/pgadmin4/servers.json
+tools/**/home/*
 dist/
+!.gitkeep
