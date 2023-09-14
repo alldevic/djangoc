@@ -64,19 +64,19 @@ logs:
 	docker compose $(COMPOSES) logs -f
 
 sh:
-	docker exec -it /djc_back /bin/bash
+	docker exec -it /djc_server /bin/bash
 
 migrations:
-	docker exec -it /djc_back server/manage.py makemigrations
+	docker exec -it /djc_server server/manage.py makemigrations
 
 migrate:
-	docker exec -it /djc_back server/manage.py migrate
+	docker exec -it /djc_server server/manage.py migrate
 
 static:
-	docker exec -it /djc_back server/manage.py collectstatic
+	docker exec -it /djc_server server/manage.py collectstatic
 
 su:
-	docker exec -it /djc_back server/manage.py createsuperuser
+	docker exec -it /djc_server server/manage.py createsuperuser
 
 black:
 	poetry run black .

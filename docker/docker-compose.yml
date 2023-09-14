@@ -1,13 +1,13 @@
 version: "3.8"
 
 services:
-  djc_back:
+  djc_server:
     build:
       context: ..
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/server.dockerfile
       args:
         - DEBUG=${DJANGO_DEBUG}
-    container_name: djc_back
+    container_name: djc_server
     env_file: ../.env
     user: ${CURRENT_UID}
     restart: on-failure
@@ -43,7 +43,7 @@ services:
     restart: on-failure
 
   djc_celery_worker:
-    image: docker-djc_back:latest
+    image: docker-djc_server:latest
     container_name: djc_celery_worker
     env_file: ../.env
     user: ${CURRENT_UID}
@@ -58,7 +58,7 @@ services:
     depends_on:
       - djc_redis
       - djc_postgres
-      - djc_back
+      - djc_server
       - djc_minio
     # deploy:
     #   mode: replicated
@@ -67,7 +67,7 @@ services:
       /app/docker/entrypoint-worker.sh
 
   djc_celery_beat:
-    image: docker-djc_back:latest
+    image: docker-djc_server:latest
     container_name: djc_celery_beat
     env_file: ../.env
     user: ${CURRENT_UID}
@@ -82,7 +82,7 @@ services:
     depends_on:
       - djc_redis
       - djc_postgres
-      - djc_back
+      - djc_server
       - djc_minio
     command: >
       /app/docker/entrypoint-beat.sh
