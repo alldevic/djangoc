@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_celery_beat",
     "django_celery_results",
+    "django_filters",
     "django_jinja",
     "minio_storage",
     "redisboard",

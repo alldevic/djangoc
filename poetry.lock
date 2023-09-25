@@ -492,6 +492,20 @@ django = ">=3.2.4"
 sqlparse = ">=0.2"
 
 [[package]]
+name = "django-filter"
+version = "23.3"
+description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-filter-23.3.tar.gz", hash = "sha256:015fe155582e1805b40629344e4a6cf3cc40450827d294d040b4b8c1749a9fa6"},
+    {file = "django_filter-23.3-py3-none-any.whl", hash = "sha256:65bc5d1d8f4fff3aaf74cb5da537b6620e9214fb4b3180f6c560776b1b6dccd0"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-jinja"
 version = "2.11.0"
 description = "Jinja2 templating language integrated in Django."
@@ -916,13 +930,13 @@ files = [
 
 [[package]]
 name = "minio"
-version = "7.1.16"
+version = "7.1.17"
 description = "MinIO Python SDK for Amazon S3 Compatible Cloud Storage"
 optional = false
 python-versions = "*"
 files = [
-    {file = "minio-7.1.16-py3-none-any.whl", hash = "sha256:8073bed2b4b1853f3d69ab2f01a0de86264071083032985921201cfbb0950b15"},
-    {file = "minio-7.1.16.tar.gz", hash = "sha256:56ecb1e7e0103d2dc212fb460fdb70ab2abb7fa5685db378429325d96d95587a"},
+    {file = "minio-7.1.17-py3-none-any.whl", hash = "sha256:0aa525d77a3bc61378444c2400b0ba2685ad4cd6ecb3fba4141a0d0765e25f40"},
+    {file = "minio-7.1.17.tar.gz", hash = "sha256:b0b687c1ec9be422a1f8b04c65fb8e43a1c090f9508178db57c434a17341c404"},
 ]
 
 [package.dependencies]
@@ -1639,4 +1653,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "be25feadef7befedafe624aac164864d1474d4e5f15d2d99e2cc270087aef1fe"
+content-hash = "57008b59f78d3e71fa4599774243f49871506d62f90a98a68786bc5c24954a82"
