@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.286
+    rev: v0.0.291
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
@@ -13,7 +13,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.32.0
+    rev: v1.34.0
     hooks:
       - id: djlint-jinja
         files: "\\.html"
