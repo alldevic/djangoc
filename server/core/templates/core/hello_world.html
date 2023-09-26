@@ -1,11 +1,67 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Djangoc</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/buefy@0.9.23/dist/buefy.min.css"
+    />
+
+    <!-- <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3.3.4/dist/vue.esm-browser.prod.js",
+          "bootstrap-vue": "https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"
+        }
+      }
+    </script> -->
+
+    <script>
+      var store = {{ store|safe }};
+    </script>
   </head>
+
   <body>
-    <h1>Hello world</h1>
+    <div id="app">
+      <b-button @click="clickMe">Click Me</b-button>
+
+      <b-table mobile-cards striped :data="todos" :columns="columns"></b-table>
+    </div>
+
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/buefy@0.9.23/dist/buefy.min.js"></script>
+
+    <script type="module">
+      new Vue({
+        el: "#app",
+        data: {
+          todos: store.todos,
+          columns: [
+            // { field: 'id', label: 'ID', width: '40', numeric: true },
+            { field: "id", label: "ID" },
+            { field: "key", label: "KEY" },
+            { field: "time", label: "TIME" },
+            { field: "txt", label: "TXT" },
+          ],
+        },
+        methods: {
+          clickMe: () => console.log("123"),
+        },
+      });
+    </script>
   </body>
 </html>
