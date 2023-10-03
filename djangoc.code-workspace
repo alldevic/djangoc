@@ -33,57 +33,62 @@
         "source.fixAll": true
       }
     },
+    "[html]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.formatOnType": false,
+      "editor.formatOnSave": false
+    }
   },
   "extensions": {},
   "launch": {
     "version": "0.2.0",
     "configurations": [
       {
-          "name": "Django Docker",
-          "type": "python",
-          "request": "attach",
-          "port": 5678,
-          "host": "127.0.0.1",
-          "django": true,
-          "showReturnValue": true,
-          "pathMappings": [
-              {
-                  "localRoot": "${workspaceFolder}",
-                  "remoteRoot": "."
-              }
-          ]
-      },
-  ]
+        "name": "Django Docker",
+        "type": "python",
+        "request": "attach",
+        "port": 5678,
+        "host": "127.0.0.1",
+        "django": true,
+        "showReturnValue": true,
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "."
+          }
+        ]
+      }
+    ]
   },
   "tasks": {
     "version": "2.0.0",
     "tasks": [
       {
-          "label": "make upd",
-          "type": "shell",
-          "command": "make upd",
-          "presentation": {
-              "echo": false,
-              "reveal": "always",
-              "focus": false,
-              "panel": "shared",
-              "showReuseMessage": true,
-              "clear": true
-          }
+        "label": "make upd",
+        "type": "shell",
+        "command": "make upd",
+        "presentation": {
+          "echo": false,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": true
+        }
       },
       {
-          "label": "make down",
-          "type": "shell",
-          "command": "make down",
-          "presentation": {
-              "echo": false,
-              "reveal": "never",
-              "focus": false,
-              "panel": "shared",
-              "showReuseMessage": true,
-              "clear": false
-          }
-      },
-  ]
+        "label": "make down",
+        "type": "shell",
+        "command": "make down",
+        "presentation": {
+          "echo": false,
+          "reveal": "never",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": true,
+          "clear": false
+        }
+      }
+    ]
   }
 }
