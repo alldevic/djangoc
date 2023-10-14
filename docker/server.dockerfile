@@ -1,4 +1,4 @@
-FROM ubuntu:lunar-20231004
+FROM debian:bookworm-20231009-slim
 
 ARG DEBUG=False
 
@@ -9,27 +9,38 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_DEBUG=${DEBUG} \
-    PATH="/app/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:/opt/poetry/bin:$PATH"\
+    POETRY_HOME=/opt/poetry
 
 WORKDIR /app
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends --no-install-suggests --no-upgrade \
     python3.11 \
-    python3-poetry \
-    ca-certificates \
+    python3-cleo \
+    python3-keyring \
+    python3.11-venv \
     wait-for-it \
     && ln -sf /usr/bin/python3.11 /usr/bin/python \
     && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
-    && rm -rf /var/lib/apt/lists/*  /root/.cache/* \
+    && python -m venv --system-site-packages $POETRY_HOME \
+    && $POETRY_HOME/bin/pip install --no-cache-dir poetry==1.6.1 \
+    && $POETRY_HOME/bin/pip uninstall -y pip setuptools \
+    && apt-get remove -y --auto-remove python3.11-venv python3-distutils python3-lib2to3 python3-pip-whl python3-setuptools-whl \
+    && apt-get clean \
+    && apt-get auto-clean \
     && find /usr/lib/python*/* -name '__pycache__' | xargs rm -r \
-    && python --version \
-    && poetry --version \
+    && find $POETRY_HOME -name '__pycache__' | xargs rm -r \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN poetry --version \
     && poetry config virtualenvs.in-project true \
     && poetry config virtualenvs.options.no-setuptools true \
     && poetry config virtualenvs.options.no-pip true \
     && poetry config installer.max-workers 10
 
 COPY poetry.lock pyproject.toml ./
+
 RUN poetry install --no-ansi --no-interaction --no-root --no-cache --only main \
     && if [[ "$DJANGO_DEBUG" == "TRUE" ]] || [[ "$DJANGO_DEBUG" == "True" ]] || [[ "$DJANGO_DEBUG" == "1" ]]; \
     then \
@@ -37,6 +48,7 @@ RUN poetry install --no-ansi --no-interaction --no-root --no-cache --only main \
     fi \
     && find /app/.venv/* -name '__pycache__' | xargs rm -r \
     && find /usr/lib/python*/* -name '__pycache__' | xargs rm -r \
-    && rm -rf poetry.lock pyproject.toml /root/.cache
+    && rm -rf poetry.lock pyproject.toml /root/.cache  /root/.local
+
 
 CMD ["./docker/entrypoint.sh"]

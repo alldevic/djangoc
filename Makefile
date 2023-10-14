@@ -2,6 +2,7 @@
 
 .PHONY: pgadmin up down logs sh migrations migrate static su
 .PHONY: black djlint clean install lint format prune ruff shell
+.PHONY: build
 .DEFAULT_GOAL := lint
 
 include ./.env
@@ -45,6 +46,9 @@ endef
 
 export SERVERS_JSON
 
+build:
+	docker compose $(MAIN_COMPOSE) --progress plain build
+
 pgadmin:
 	rm -f ./tools/pgadmin4/servers.json
 	echo "$$SERVERS_JSON" > ./tools/pgadmin4/servers.json
@@ -54,7 +58,7 @@ pgadmin:
 up:
 	docker volume create djc_db_data
 	docker volume create djc_s3_data
-	docker compose $(MAIN_COMPOSE) build --progress plain
+	docker compose $(MAIN_COMPOSE) --progress plain build
 	docker compose $(MAIN_COMPOSE) up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
 down:
