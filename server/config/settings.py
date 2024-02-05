@@ -44,7 +44,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = SECRET_KEY = get_env(
+SECRET_KEY = get_env(
     "DJANGO_SECRET_KEY",
     "django-insecure-n8o!62f3o4heq*&)ajls17@#l%l-_w*=z=yw53zef%*n309hr@",
 )
@@ -54,7 +54,7 @@ DEBUG = get_env("DJANGO_DEBUG", False)
 USE_DJDT = get_env("DJANGO_USE_DJDT", False)
 USE_PYINSTRUMENT = get_env("DJANGO_USE_PYINSTRUMENT", False)
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = [
+ALLOWED_HOSTS = [
     get_env("SITE_DOMAIN_NAME", "dj.localhost"),
     "localhost",
     "0.0.0.0",
