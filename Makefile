@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 .PHONY: pgadmin up down logs sh migrations migrate static su
-.PHONY: black djlint clean install lint format prune ruff shell
+.PHONY: ruff-format djlint clean install lint format prune ruff shell
 .PHONY: build
 .DEFAULT_GOAL := lint
 
@@ -82,8 +82,8 @@ static:
 su:
 	docker exec -it /djc_server server/manage.py createsuperuser
 
-black:
-	poetry run black .
+ruff-format:
+	poetry run ruff format .
 
 djlint:
 	poetry run djlint . --reformat
@@ -105,9 +105,9 @@ install: clean
 lint:
 	poetry run ruff check .
 	poetry run djlint . --lint
-	poetry run black . --check
+	poetry run ruff format . --check
 
-format: ruff djlint black
+format: ruff djlint ruff-format
 
 prune: clean
 	rm -rf poetry.lock .vscode .venv

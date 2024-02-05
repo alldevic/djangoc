@@ -5,8 +5,6 @@
     }
   ],
   "settings": {
-    "black-formatter.interpreter": ["${workspaceFolder}/.venv/bin/python"],
-    "black-formatter.path": ["${workspaceFolder}/.venv/bin/black"],
     "makefile.configureOnOpen": false,
     "makefile.configureOnEdit": false,
     "makefile.configureAfterCommand": false,
@@ -26,7 +24,7 @@
     "ruff.organizeImports": true,
 
     "[python]": {
-      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.defaultFormatter": "charliermarsh.ruff",
       "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
         "source.organizeImports": "never",
