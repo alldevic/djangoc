@@ -1,4 +1,4 @@
-FROM debian:bookworm-20231009-slim
+FROM debian:bookworm-20240130-slim
 
 ARG DEBUG=False
 
@@ -9,8 +9,9 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
     PYTHONDONTWRITEBYTECODE=1 \
     DJANGO_DEBUG=${DEBUG} \
-    PATH="/app/.venv/bin:/opt/poetry/bin:$PATH"\
-    POETRY_HOME=/opt/poetry
+    PATH="/app/.venv/bin:/opt/poetry/bin:$PATH" \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VERSION=1.7.1
 
 WORKDIR /app
 
@@ -23,7 +24,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     && ln -sf /usr/bin/python3.11 /usr/bin/python \
     && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
     && python -m venv --system-site-packages $POETRY_HOME \
-    && $POETRY_HOME/bin/pip install --no-cache-dir poetry==1.6.1 \
+    && $POETRY_HOME/bin/pip install --no-cache-dir poetry==$POETRY_VERSION \
     && $POETRY_HOME/bin/pip uninstall -y pip setuptools \
     && apt-get remove -y --auto-remove python3.11-venv python3-distutils python3-lib2to3 python3-pip-whl python3-setuptools-whl \
     && apt-get clean \
