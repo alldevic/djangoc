@@ -28,7 +28,7 @@ whitenoise = { extras = ["brotli"], version = "6.6.0" }
 django-filter = "23.5"
 
 [tool.poetry.group.dev.dependencies]
-debugpy = "1.8.0"
+debugpy = "1.8.1"
 django-debug-toolbar = "4.3.0"
 djlint = "1.34.1"
 pre-commit = "3.6.0"
