@@ -10,6 +10,7 @@ wait-for-it \
     --port=9000 \
     --timeout=90 \
     --strict
+echo >&2 "MiniO is up - continuing..."
 
 echo >&2 "PostgreSQL waiting..."
 wait-for-it \

@@ -3,3 +3,7 @@ in-project = true
 
 [virtualenvs.options]
 no-setuptools = true
+no-pip = true
+
+[installer]
+max-workers = 10

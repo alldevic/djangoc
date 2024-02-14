@@ -1,0 +1,79 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+	"name": "Debian",
+	"build": {
+		"dockerfile": "./docker/server.dockerfile",
+		"context": ".",
+		"args": {
+			"DEBUG": "True",
+			"APT_ADDITIONAL": "ncdu make git"
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": "false",
+			"username": "vscode",
+			"userUid": "1000",
+			"userGid": "1000",
+			"upgradePackages": "true"
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker": {}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.analysis.diagnosticMode": "workspace",
+				"python.analysis.inlayHints.functionReturnTypes": true,
+				"python.analysis.inlayHints.pytestParameters": true,
+				"python.analysis.inlayHints.variableTypes": true,
+				"python.analysis.typeCheckingMode": "off",
+				"python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+				"python.languageServer": "Pylance",
+				"python.testing.pytestEnabled": false,
+				"ruff.importStrategy": "fromEnvironment",
+				"ruff.interpreter": ["./.venv/bin/python"],
+				"ruff.path": ["./.venv/bin/ruff"],
+				"ruff.fixAll": true,
+				"ruff.organizeImports": true,
+
+				"[python]": {
+				  "editor.defaultFormatter": "charliermarsh.ruff",
+				  "editor.formatOnSave": true,
+				  "editor.codeActionsOnSave": {
+					"source.organizeImports": "never",
+					"source.fixAll": "explicit"
+				  }
+				},
+				"[html]": {
+				  "editor.suggest.insertMode": "replace",
+				  "editor.formatOnType": false,
+				  "editor.formatOnSave": false
+				}
+			},
+			"extensions": [
+				"arturock.gitstash",
+				"charliermarsh.ruff",
+				"mhutchie.git-graph",
+				"ms-python.debugpy",
+				"ms-python.vscode-pylance",
+				"ms-python.python",
+				"usernamehw.errorlens",
+				"visualstudioexptteam.intellicode-api-usage-examples",
+				"waderyan.gitblame"
+			]
+		}
+	},
+	"forwardPorts": [
+		8000
+	],
+	"workspaceFolder": "/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+	"mounts": [
+		{
+			"type": "volume",
+			"target": "/app/.venv"
+		}
+	],
+	"remoteUser": "vscode"
+}

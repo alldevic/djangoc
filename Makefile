@@ -99,6 +99,8 @@ clean:
 install: clean
 	poetry config virtualenvs.in-project true --local
 	poetry config virtualenvs.options.no-setuptools true --local
+	poetry config virtualenvs.options.no-pip true --local
+	poetry config installer.max-workers 10 --local
 	poetry install
 	poetry run pre-commit install
 

@@ -1,6 +1,7 @@
 FROM debian:bookworm-20240130-slim
 
 ARG DEBUG=False
+ARG APT_ADDITIONAL=
 
 SHELL ["/bin/bash", "-c"]
 
@@ -21,6 +22,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     python3-keyring \
     python3.11-venv \
     wait-for-it \
+    $APT_ADDITIONAL \
     && ln -sf /usr/bin/python3.11 /usr/bin/python \
     && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
     && python -m venv --system-site-packages $POETRY_HOME \
