@@ -31,9 +31,9 @@ django-filter = "23.5"
 debugpy = "1.8.1"
 django-debug-toolbar = "4.3.0"
 djlint = "1.34.1"
-pre-commit = "3.6.1"
+pre-commit = "3.6.2"
 pyinstrument = "4.6.2"
-ruff = "0.2.1"
+ruff = "0.2.2"
 
 [tool.ruff.format]
 # verbose = true
