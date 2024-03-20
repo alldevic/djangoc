@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240130-slim
+FROM debian:bookworm-20240311-slim
 
 ARG DEBUG=False
 ARG APT_ADDITIONAL=
@@ -12,7 +12,7 @@ ENV PYTHONFAULTHANDLER=1 \
     DJANGO_DEBUG=${DEBUG} \
     PATH="/app/.venv/bin:/opt/poetry/bin:$PATH" \
     POETRY_HOME=/opt/poetry \
-    POETRY_VERSION=1.7.1
+    POETRY_VERSION=1.8.2
 
 WORKDIR /app
 

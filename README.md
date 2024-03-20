@@ -1,6 +1,7 @@
 # DjangoC
 
 ## TODO
+- fix devcontainer
 - profiling: memray
 - CELERY_RESULT_EXPIRES to 1 week
 - Check MiniO recycle bin, fix admin delete
