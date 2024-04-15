@@ -30,14 +30,7 @@ def build_request_repr(request):
     except Exception:
         meta = "<could not parse>"
     return force_str(
-        "<{}\npath:{},\nGET:{},\nPOST:{},\nCOOKIES:{},\nMETA:{}>".format(
-            request.__class__.__name__,
-            request.path,
-            str(get),
-            str(post),
-            str(cookies),
-            str(meta),
-        ),
+        f"<{request.__class__.__name__}\npath:{request.path},\nGET:{get!s},\nPOST:{post!s},\nCOOKIES:{cookies!s},\nMETA:{meta!s}>",
     )
 
 
