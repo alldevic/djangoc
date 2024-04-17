@@ -95,6 +95,7 @@ clean:
 	touch staticfiles/.gitkeep
 	touch profiles/.gitkeep
 	touch tools/pgadmin4/home/.gitkeep
+	git config core.hooksPath .git/hooks
 
 install: clean
 	poetry config virtualenvs.in-project true --local
@@ -102,7 +103,7 @@ install: clean
 	poetry config virtualenvs.options.no-pip true --local
 	poetry config installer.max-workers 10 --local
 	poetry install
-	poetry run pre-commit install
+	git config core.hooksPath tools/git-hooks
 
 lint:
 	poetry run ruff check .
@@ -121,3 +122,6 @@ ruff:
 
 shell:
 	poetry shell --quiet
+
+pre-commit:
+	tools/git-hooks/pre-commit

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+poetry run ruff check --force-exclude --fix --exit-non-zero-on-fix
