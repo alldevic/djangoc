@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+CHANGED_FILES=$(git --no-pager diff --name-only --cached --diff-filter=ACMR)
+
+if [ -n "$CHANGED_FILES" ]; then
+  IFS=$'\n'
+
+  for filename in $CHANGED_FILES; do
+    if [ ! -s "$filename" ]; then
+      #echo "$filename is empty"
+      continue
+    elif [ -z "$(tail -c 1 <"$filename")" ]; then
+      #echo "$filename ends with a newline or with a null byte"
+      continue
+    else
+      echo "[$filename]: no newline at EOF"
+      exit 1
+    fi
+  done
+fi
+exit 0

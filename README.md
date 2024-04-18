@@ -1,7 +1,7 @@
 # DjangoC
 
 ## TODO
-- add pre-commit hooks: check-yaml, end-of-file-fixer, trailing-whitespace
+- add pre-commit hooks: check-yaml, trailing-whitespace
 - fix devcontainer
 - profiling: memray
 - CELERY_RESULT_EXPIRES to 1 week

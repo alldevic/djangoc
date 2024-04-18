@@ -7,5 +7,6 @@ set -o xtrace
 
 bash -c tools/git-hooks/hooks/ruff-check
 bash -c tools/git-hooks/hooks/ruff-format
+bash -c tools/git-hooks/hooks/eof-check
 bash -c tools/git-hooks/hooks/djlint-lint
 bash -c tools/git-hooks/hooks/poetry-check

@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-poetry run djlint . --lint --quiet
+CHANGED_FILES=$(git --no-pager diff --name-only --cached --diff-filter=ACMR -- '*.htm*')
+
+if [ -n "$CHANGED_FILES" ]; then
+    poetry run djlint $CHANGED_FILES --lint --quiet
+fi

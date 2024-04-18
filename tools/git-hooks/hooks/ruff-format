@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-poetry run ruff format . --check --force-exclude
+CHANGED_FILES=$(git --no-pager diff --name-only --cached --diff-filter=ACMR -- '*.py')
+
+if [ -n "$CHANGED_FILES" ]; then
+    poetry run ruff format $CHANGED_FILES --check --force-exclude
+fi
