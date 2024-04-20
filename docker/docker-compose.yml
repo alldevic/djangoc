@@ -86,7 +86,7 @@ services:
       /app/docker/entrypoint-beat.sh
 
   djc_minio:
-    image: minio/minio:RELEASE.2024-04-06T05-26-02Z
+    image: minio/minio:RELEASE.2024-04-18T19-09-19Z
     container_name: djc_minio
     hostname: minio
     volumes:
