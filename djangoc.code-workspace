@@ -43,10 +43,12 @@
     "configurations": [
       {
         "name": "Django Docker",
-        "type": "python",
+        "type": "debugpy",
         "request": "attach",
-        "port": 5678,
-        "host": "127.0.0.1",
+        "connect": {
+          "host": "127.0.0.1",
+          "port": 5678,
+        },
         "django": true,
         "showReturnValue": true,
         "pathMappings": [
@@ -64,7 +66,7 @@
       {
         "label": "make upd",
         "type": "shell",
-        "command": "make upd",
+        "command": "make up",
         "presentation": {
           "echo": false,
           "reveal": "always",
