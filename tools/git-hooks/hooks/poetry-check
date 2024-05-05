@@ -1,3 +1,22 @@
 #!/usr/bin/env bash
 
-poetry check
+UNSTAGED_PYPROJECT=$(git --no-pager diff --name-only -- '*pyproject.toml')
+ 
+if [ -n "$UNSTAGED_PYPROJECT" ]; then
+    echo "pyproject.toml not fully staged"
+    exit 1
+fi  
+
+UNSTAGED_LOCK=$(git --no-pager diff --name-only -- '*poetry.lock')
+
+if [ -n "$UNSTAGED_LOCK" ]; then
+    echo "poetry.lock not fully staged"
+    exit 1
+fi
+
+STAGED_PYPROJECT=$(git --no-pager diff --name-only --cached --diff-filter=ACMR -- '*pyproject.toml')
+STAGED_LOCK=$(git --no-pager diff --name-only --cached --diff-filter=ACMR -- '*poetry.lock')
+
+if [[ -n "$STAGED_PYPROJECT" || -n "$UNSTAGED_LOCK" ]]; then
+    poetry check
+fi
