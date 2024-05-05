@@ -1,14 +1,16 @@
 """Override default runserver with debugpy."""
 
 import os
+from typing import Any
 
 from django.contrib.staticfiles.management.commands import runserver
+from django.core.management.base import CommandParser
 
 
 class Command(runserver.Command):
     """Extendeed default Django's runserver command."""
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """Entry point for subclassed commands to add custom arguments."""
         super().add_arguments(parser)
 
@@ -19,7 +21,7 @@ class Command(runserver.Command):
             help="Enables debugger",
         )
 
-    def run(self, *args, **options):
+    def run(self, **options: Any) -> None:
         """Command executor."""
         if os.environ.get("RUN_MAIN") or os.environ.get("WERKZEUG_RUN_MAIN"):
             import debugpy
@@ -33,4 +35,4 @@ class Command(runserver.Command):
             except (OSError, RuntimeError):
                 print(f"Debugger: Port {port} already in use")
 
-        super().run(*args, **options)
+        super().run(**options)

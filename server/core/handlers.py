@@ -2,11 +2,13 @@
 
 import logging
 from pprint import pformat
+from typing import Any
 
+from django.http.request import HttpRequest
 from django.utils.encoding import force_str
 
 
-def build_request_repr(request):
+def build_request_repr(request: HttpRequest) -> str:
     """Builds and returns the request's representation string.
 
     The request's attributes may be overridden by pre-processed values.
@@ -41,7 +43,7 @@ class AdminWatchdogHandler(logging.Handler):
         """AdminWatchdogHandler constructor."""
         logging.Handler.__init__(self)
 
-    def emit(self, record):
+    def emit(self, record: Any) -> None:
         """Raw message parser.
 
         Args:

@@ -14,12 +14,15 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.11"
 celery = { version = "5.4.0", extras = ["eventlet", "redis"] }
+celery-types = "0.22.0"
 django = "5.0.4"
 django-celery-beat = "2.6.0"
 django-celery-results = "2.5.1"
+django-filter = "24.2"
 django-jinja = "2.11.0"
 django-minio-storage = "0.5.7"
 django-redisboard = "8.4.0"
+django-stubs-ext = "5.0.0"
 docutils = "0.21.2"
 eventlet = "0.36.1"
 gunicorn = { version = "22.0.0", extras = ["eventlet"] }
@@ -27,12 +30,13 @@ jinja2 = "3.1.3"
 pillow = "10.3.0"
 psycopg = { extras = ["binary"], version = "3.1.18" }
 whitenoise = { extras = ["brotli"], version = "6.6.0" }
-django-filter = "24.2"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "1.8.1"
 django-debug-toolbar = "4.3.0"
+django-stubs = { version = "5.0.0", extras = ["compatible-mypy"] }
 djlint = "1.34.1"
+mypy = "1.10.0"
 pyinstrument = "4.6.2"
 ruff = "0.4.3"
 
@@ -69,7 +73,6 @@ select = [
     "D",
     "UP",
     "YTT",
-    #"ANN",
     "B",
     "COM",
     "C4",
@@ -94,3 +97,23 @@ mark-parentheses = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.mypy]
+mypy_path = "./server"
+enable_error_code = [
+    "truthy-bool",
+    "truthy-iterable",
+    "redundant-expr",
+    "unused-awaitable",
+    "ignore-without-code",
+    "possibly-undefined",
+    "redundant-self",
+]
+plugins = ["mypy_django_plugin.main"]
+explicit_package_bases = true
+ignore_missing_imports = true
+strict = true
+warn_unreachable = true
+
+[tool.django-stubs]
+django_settings_module = "config.settings"

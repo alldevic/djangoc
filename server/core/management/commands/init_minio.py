@@ -1,5 +1,7 @@
 """MiniO init command."""
 
+from typing import Any
+
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from minio import Minio
@@ -9,7 +11,7 @@ from minio_storage.policy import Policy
 class Command(BaseCommand):
     """MiniO init command."""
 
-    def __init__(self, *_args, **_kwargs) -> None:
+    def __init__(self, *_args: Any, **_kwargs: Any) -> None:
         """Creating client."""
         super().__init__(*_args, **_kwargs)
         self.mclient = Minio(
@@ -19,7 +21,7 @@ class Command(BaseCommand):
             secure=False,
         )
 
-    def handle(self, *_args, **_options) -> str | None:
+    def handle(self, *_args: Any, **_options: Any) -> str | None:
         """Init buckets."""
         if not self.mclient.bucket_exists(settings.MINIO_STORAGE_MEDIA_BUCKET_NAME):
             self.mclient.make_bucket(
@@ -50,3 +52,5 @@ class Command(BaseCommand):
         print("All buckets:")
         for bucket in self.mclient.list_buckets():
             print(bucket.name)
+
+        return None

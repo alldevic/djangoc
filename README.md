@@ -1,6 +1,7 @@
 # DjangoC
 
 ## TODO
+- redis to .env
 - fix devcontainer
 - profiling: memray
 - CELERY_RESULT_EXPIRES to 1 week
@@ -22,6 +23,5 @@
 - add tools: celery flower
 - task pipeline?
 - short and long task runners?
-- mypy
   ...
 - squash commits

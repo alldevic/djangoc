@@ -35,7 +35,8 @@
       "editor.suggest.insertMode": "replace",
       "editor.formatOnType": false,
       "editor.formatOnSave": false
-    }
+    },
+    "mypy-type-checker.importStrategy": "fromEnvironment"
   },
   "extensions": {},
   "launch": {

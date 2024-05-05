@@ -9,13 +9,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import importlib
+from importlib import util
 from os import environ
 from pathlib import Path
 from typing import Any
 
+import django_stubs_ext
 
-def get_env(key: str, default: Any | None = None) -> Any | None:
+django_stubs_ext.monkeypatch()
+
+
+def get_env(key: str, default: Any = None) -> Any:
     """Get Environment variable by key.
 
     Args:
@@ -268,8 +272,8 @@ if DEBUG:
         except ImportError:
             pass
 
-    if USE_PYINSTRUMENT and importlib.util.find_spec("pyinstrument"):
-        importlib.util.find_spec("pyinstrument")
+    if USE_PYINSTRUMENT and util.find_spec("pyinstrument"):
+        util.find_spec("pyinstrument")
 
         MIDDLEWARE.insert(1, "pyinstrument.middleware.ProfilerMiddleware")
         PYINSTRUMENT_PROFILE_DIR = "/app/profiles"

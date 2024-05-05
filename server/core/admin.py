@@ -2,13 +2,14 @@
 
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.safestring import SafeText
 from django.utils.translation import gettext_lazy as _
 
 from core.models import LogEntry, Person
 
 
 @admin.register(LogEntry)
-class LogEntryAdmin(admin.ModelAdmin):
+class LogEntryAdmin(admin.ModelAdmin[LogEntry]):
     """LogEntry admin page."""
 
     date_hierarchy = "when"
@@ -27,35 +28,31 @@ class LogEntryAdmin(admin.ModelAdmin):
         "request_repr",
     )
 
-    def show_message(self, instance):
+    @admin.display(description=_("Message"))
+    def show_message(self, object: LogEntry) -> SafeText:
         """Safety message representation.
 
         Args:
-            instance: message instance
+            object: message instance
 
         Returns:
             Escaped message representation
         """
-        return format_html("<pre>{0}</pre>", instance.message)
+        return format_html("<pre>{0}</pre>", object.message)
 
-    show_message.short_description = _("Message")
-    show_message.allow_tags = True
-
-    def show_request_repr(self, instance):
+    @admin.display(description=_("Request representation"))
+    def show_request_repr(self, object: LogEntry) -> SafeText:
         """Safety request representation.
 
         Args:
-            instance: request instance
+            object: request instance
 
         Returns:
             Escaped reuqest representation
         """
-        return format_html("<pre>{0}</pre>", instance.request_repr)
-
-    show_request_repr.short_description = _("Request representation")
-    show_request_repr.allow_tags = True
+        return format_html("<pre>{0}</pre>", object.request_repr)
 
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(admin.ModelAdmin[Person]):
     """Admin for test model."""

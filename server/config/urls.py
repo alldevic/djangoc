@@ -22,6 +22,10 @@ from django.urls import include, path
 
 from core import views as core_views
 
+admin.site.site_title = "djangoc site admin (DEV)"
+admin.site.site_header = "djangoc administration"
+admin.site.index_title = "Site administration"
+
 urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),

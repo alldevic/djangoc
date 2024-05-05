@@ -44,6 +44,6 @@ class Person(models.Model):
     date_of_birth = models.DateField()
     picture = models.ImageField(upload_to="person_pics")
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Default text representaion."""
         return f"{self.first_name} {self.last_name} {self.date_of_birth!s}"

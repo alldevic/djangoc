@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+CHANGED_FILES=$(git --no-pager diff --name-only --cached --diff-filter=ACMR -- '*.py')
+
+if [ -n "$CHANGED_FILES" ]; then
+    poetry run mypy $CHANGED_FILES
+fi

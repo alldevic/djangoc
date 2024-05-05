@@ -2,7 +2,7 @@
 
 .PHONY: pgadmin up down logs sh migrations migrate static su
 .PHONY: ruff-format djlint clean install lint format prune ruff shell
-.PHONY: build
+.PHONY: build mypy pre-commit
 .DEFAULT_GOAL := lint
 
 include ./.env
@@ -106,6 +106,7 @@ install: clean
 	git config core.hooksPath tools/git-hooks
 
 lint:
+	poetry run mypy .
 	poetry run ruff check .
 	poetry run djlint . --lint
 	poetry run ruff format . --check
@@ -125,3 +126,6 @@ shell:
 
 pre-commit:
 	tools/git-hooks/pre-commit
+
+mypy:
+	poetry run mypy .

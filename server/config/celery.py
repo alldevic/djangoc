@@ -1,9 +1,11 @@
 """Celery config."""
 
 import os
-from typing import Self
 
 from celery import Celery
+from celery.app.task import Task
+
+Task.__class_getitem__ = classmethod(lambda cls, *_args, **_kwargs: cls)  # type: ignore[attr-defined]
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
@@ -21,7 +23,7 @@ app.autodiscover_tasks()
 
 
 @app.task(bind=True, ignore_result=False)
-def debug_task(self: Self) -> None:
+def debug_task(self: Task[[], str]) -> str:
     """Test task.
 
     Args:

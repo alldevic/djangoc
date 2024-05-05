@@ -5,6 +5,7 @@ set -o nounset
 set -o pipefail
 set -o xtrace
 
+bash -c tools/git-hooks/hooks/mypy
 bash -c tools/git-hooks/hooks/ruff-check
 bash -c tools/git-hooks/hooks/ruff-format
 bash -c tools/git-hooks/hooks/eof-check
