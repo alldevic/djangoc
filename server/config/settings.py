@@ -58,6 +58,9 @@ DEBUG = get_env("DJANGO_DEBUG", False)
 USE_DJDT = get_env("DJANGO_USE_DJDT", False)
 USE_PYINSTRUMENT = get_env("DJANGO_USE_PYINSTRUMENT", False)
 
+ENV_REDIS_HOST = get_env("REDIS_HOST", "localhost")
+ENV_REDIS_PORT = int(get_env("REDIS_PORT", 6379))
+
 ALLOWED_HOSTS = [
     get_env("SITE_DOMAIN_NAME", "dj.localhost"),
     "localhost",
@@ -194,7 +197,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379/0",
+        "LOCATION": f"redis://{ENV_REDIS_HOST}:{ENV_REDIS_PORT}/0",
     },
 }
 
@@ -239,7 +242,7 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 3 * 60
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "default"
-CELERY_BROKER_URL = "redis://redis:6379/1"
+CELERY_BROKER_URL = f"redis://{ENV_REDIS_HOST}:{ENV_REDIS_PORT}/1"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_RESULT_EXTENDED = True
 CELERY_WORKER_MAX_MEMORY_PER_CHILD = 200_000  # KB
