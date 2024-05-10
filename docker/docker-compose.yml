@@ -26,7 +26,7 @@ services:
       /app/docker/entrypoint-back.sh
 
   djc_postgres:
-    image: postgres:16.2-bookworm
+    image: postgres:16.3-bookworm
     container_name: djc_postgres
     hostname: postgres
     env_file: ../.env
@@ -86,7 +86,7 @@ services:
       /app/docker/entrypoint-beat.sh
 
   djc_minio:
-    image: minio/minio:RELEASE.2024-04-18T19-09-19Z
+    image: minio/minio:RELEASE.2024-05-07T06-41-25Z
     container_name: djc_minio
     hostname: minio
     volumes:
