@@ -21,6 +21,7 @@
     "ruff.interpreter": ["./.venv/bin/python"],
     "ruff.path": ["./.venv/bin/ruff"],
     "ruff.fixAll": true,
+    "ruff.nativeServer": true,
     "ruff.organizeImports": true,
 
     "[python]": {
