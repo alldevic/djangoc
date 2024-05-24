@@ -16,7 +16,6 @@
 - уменьшить количество зависимостей
 - github actions
 - refact Makefile
-- add tools: redisinsight
 - tools pgadmin4: update config witwhout prune
 - add tools: celery flower
 - task pipeline?

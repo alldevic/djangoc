@@ -1,0 +1,6 @@
+services:
+  redisinsight:
+    container_name: djc_redisinsight
+    image: redis/redisinsight:2.48.0
+    volumes:
+      - ../tools/redisinsight/home/:/data/:rw

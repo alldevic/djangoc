@@ -2,7 +2,7 @@
 
 .PHONY: pgadmin up down logs sh migrations migrate static su
 .PHONY: ruff-format djlint clean install lint format prune ruff shell
-.PHONY: build mypy pre-commit dozzle
+.PHONY: build mypy pre-commit dozzle rui
 .DEFAULT_GOAL := lint
 
 include ./.env
@@ -13,7 +13,8 @@ CURRENT_UID := $(shell id -u):$(shell id -g)
 MAIN_COMPOSE=-f ./docker/docker-compose.yml
 PGADMIN_COMPOSE=-f ./tools/pgadmin4/docker-compose.pgadmin4.yml
 DOZZLE_COMPOSE=-f ./tools/dozzle/docker-compose.dozzle.yml
-COMPOSES=$(MAIN_COMPOSE) $(PGADMIN_COMPOSE) $(DOZZLE_COMPOSE)
+RUI_COMPOSE=-f ./tools/redisinsight/docker-compose.redisinsight.yml
+COMPOSES=$(MAIN_COMPOSE) $(PGADMIN_COMPOSE) $(DOZZLE_COMPOSE) $(RUI_COMPOSE)
 
 export PYTHONUNBUFFERED 1
 export PYTHONDONTWRITEBYTECODE 1
@@ -59,6 +60,9 @@ pgadmin:
 dozzle:
 	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans dozzle
 
+rui:
+	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans redisinsight
+
 up:
 	docker volume create djc_caddy_data
 	docker volume create djc_caddy_config
@@ -96,12 +100,13 @@ djlint:
 
 clean:
 	rm -rf .mypy_cache .pytest_cache .ruff_cache htmlcov .coverage staticfiles/* dist
-	rm -rf profiles/* tools/pgadmin4/home/*
+	rm -rf profiles/* tools/pgadmin4/home/* tools/redisinsight/home/*
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	touch staticfiles/.gitkeep
 	touch profiles/.gitkeep
 	touch tools/pgadmin4/home/.gitkeep
-	git config core.hooksPath .git/hooks
+	touch tools/redisinsight/home/.gitkeep
+
 
 install: clean
 	poetry config virtualenvs.in-project true --local
@@ -123,6 +128,7 @@ prune: clean
 	rm -rf poetry.lock .vscode .venv
 	docker volume rm djc_db_data
 	docker volume rm djc_s3_data
+	git config core.hooksPath .git/hooks
 
 ruff:
 	poetry run ruff check --fix .

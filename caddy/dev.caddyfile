@@ -26,3 +26,7 @@ pgadmin.localhost {
 dozzle.localhost {
     reverse_proxy djc_dozzle:8080
 }
+
+rui.localhost {
+    reverse_proxy djc_redisinsight:5540  
+}
