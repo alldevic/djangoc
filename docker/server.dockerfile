@@ -1,4 +1,4 @@
-FROM debian:bookworm-20240423-slim
+FROM debian:bookworm-20240513-slim
 
 ARG DEBUG=False
 ARG APT_ADDITIONAL=

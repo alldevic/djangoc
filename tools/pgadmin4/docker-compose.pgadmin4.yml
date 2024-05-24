@@ -2,9 +2,7 @@ services:
   pgadmin:
     container_name: djc_pgadmin4
     # env_file: ../.env
-    image: dpage/pgadmin4:7.6
-    ports:
-      - 15432:15432
+    image: dpage/pgadmin4:8.6
     volumes:
       - ../tools/pgadmin4/servers.json:/pgadmin4/servers.json:ro
       - ../tools/pgadmin4/home/:/home/:rw

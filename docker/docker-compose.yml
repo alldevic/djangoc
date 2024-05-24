@@ -13,7 +13,6 @@ services:
       - ..:/app
       - /app/.venv
     ports:
-      - 8000:8000
       - 5678:5678
     links:
       - djc_redis
@@ -35,7 +34,7 @@ services:
       - djc_db_data:/var/lib/postgresql/data
 
   djc_redis:
-    image: redis:7.2.4-bookworm
+    image: redis:7.2.5-bookworm
     container_name: djc_redis
     hostname: redis
     restart: on-failure
@@ -86,15 +85,13 @@ services:
       /app/docker/entrypoint-beat.sh
 
   djc_minio:
-    image: minio/minio:RELEASE.2024-05-07T06-41-25Z
+    image: minio/minio:RELEASE.2024-05-10T01-41-38Z
     container_name: djc_minio
     hostname: minio
     volumes:
       - djc_s3_data:/data
-    ports:
-      - 9000:9000
-      - 9001:9001
     environment:
+      - MINIO_BROWSER_REDIRECT_URL=https://minio.localhost/f75a0d8/
       - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
       - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
     deploy:
@@ -108,7 +105,38 @@ services:
     command: >
       server /data --console-address ":9001"
 
+  djc_caddy:
+    image: caddy:2.7.6
+    container_name: djc_caddy
+    hostname: caddy
+    restart: unless-stopped
+    volumes:
+      - ../caddy/dev.caddyfile:/etc/caddy/Caddyfile:ro
+      - djc_caddy_data:/data
+      - djc_caddy_config:/config
+      - ../staticfiles:/static:ro
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # http/3
+      - "2019:2019" # trust/untrust support
+    environment:
+      - CADDY_ADMIN=0.0.0.0:2019
+
+  djc_dozzle:
+    image: amir20/dozzle:v6.6.3
+    container_name: djc_dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOZZLE_NO_ANALYTICS=true
+      - DOZZLE_ENABLE_ACTIONS=true
+
 volumes:
+  djc_caddy_data:
+    external: true
+  djc_caddy_config:
+    external: true
   djc_db_data:
     external: true
   djc_s3_data:

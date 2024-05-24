@@ -18,8 +18,8 @@
     "python.languageServer": "Pylance",
     "python.testing.pytestEnabled": false,
     "ruff.importStrategy": "fromEnvironment",
-    "ruff.interpreter": ["./.venv/bin/python"],
-    "ruff.path": ["./.venv/bin/ruff"],
+    "ruff.interpreter": ["${workspaceFolder}/.venv/bin/python"],
+    "ruff.path": ["${workspaceFolder}/.venv/bin/ruff"],
     "ruff.fixAll": true,
     "ruff.nativeServer": true,
     "ruff.organizeImports": true,
@@ -51,6 +51,7 @@
           "host": "127.0.0.1",
           "port": 5678,
         },
+        "jinja": true,
         "django": true,
         "showReturnValue": true,
         "pathMappings": [

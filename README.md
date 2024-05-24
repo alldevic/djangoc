@@ -8,7 +8,6 @@
 - Check logging errors to admin in tasks
 - Persons, permissions
 - feature flags
-- https for dev
 - compose: cpu and ram limits
 - prod conf: media (s3?), ports, custom docker-compose
 - prod conf: pyinstrument
@@ -21,6 +20,7 @@
 - tools pgadmin4: update config witwhout prune
 - add tools: celery flower
 - task pipeline?
+- dozzler to tools
 - short and long task runners?
   ...
 - squash commits

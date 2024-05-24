@@ -91,7 +91,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -181,11 +180,9 @@ STORAGES = {
         "BACKEND": "minio_storage.storage.MinioMediaStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
-WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 APPEND_SLASH = True
 
@@ -255,8 +252,10 @@ MINIO_STORAGE_USE_HTTPS = get_env("SITE_USE_HTTPS", False)
 MINIO_STORAGE_MEDIA_BUCKET_NAME = "media"
 MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "recyclebin"
 MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
-MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "http://localhost:9000/media")
+MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "https://minio.localhost/media")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
 if DEBUG:
     if USE_DJDT:

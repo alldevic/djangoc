@@ -1,0 +1,28 @@
+localhost {
+    tls internal
+    handle_path /static/* {
+        root * /static
+        file_server
+    }
+    handle {
+    reverse_proxy djc_server:8000
+    }
+}
+
+dozzle.localhost {
+    reverse_proxy djc_dozzle:8080
+}
+
+minio.localhost: {
+    handle_path /f75a0d8/* {
+        reverse_proxy djc_minio:9001
+    }
+
+    handle {
+        reverse_proxy djc_minio:9000
+    }
+}
+
+pgadmin.localhost {
+    reverse_proxy djc_pgadmin4:15432
+}
