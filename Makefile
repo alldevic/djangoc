@@ -2,7 +2,7 @@
 
 .PHONY: pgadmin up down logs sh migrations migrate static su
 .PHONY: ruff-format djlint clean install lint format prune ruff shell
-.PHONY: build mypy pre-commit
+.PHONY: build mypy pre-commit dozzle
 .DEFAULT_GOAL := lint
 
 include ./.env
@@ -12,7 +12,8 @@ SHELL = /bin/bash
 CURRENT_UID := $(shell id -u):$(shell id -g)
 MAIN_COMPOSE=-f ./docker/docker-compose.yml
 PGADMIN_COMPOSE=-f ./tools/pgadmin4/docker-compose.pgadmin4.yml
-COMPOSES=$(MAIN_COMPOSE) $(PGADMIN_COMPOSE)
+DOZZLE_COMPOSE=-f ./tools/dozzle/docker-compose.dozzle.yml
+COMPOSES=$(MAIN_COMPOSE) $(PGADMIN_COMPOSE) $(DOZZLE_COMPOSE)
 
 export PYTHONUNBUFFERED 1
 export PYTHONDONTWRITEBYTECODE 1
@@ -55,6 +56,9 @@ pgadmin:
 	docker volume create djc_pgadmin4_data
 	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans pgadmin
 
+dozzle:
+	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans dozzle
+
 up:
 	docker volume create djc_caddy_data
 	docker volume create djc_caddy_config
@@ -67,7 +71,7 @@ down:
 	docker compose $(COMPOSES) down -v
 
 logs:
-	docker compose $(COMPOSES) logs -f
+	docker compose $(MAIN_COMPOSE) logs -f
 
 sh:
 	docker exec -it /djc_server /bin/bash

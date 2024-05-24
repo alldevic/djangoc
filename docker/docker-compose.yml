@@ -123,15 +123,6 @@ services:
     environment:
       - CADDY_ADMIN=0.0.0.0:2019
 
-  djc_dozzle:
-    image: amir20/dozzle:v6.6.3
-    container_name: djc_dozzle
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - DOZZLE_NO_ANALYTICS=true
-      - DOZZLE_ENABLE_ACTIONS=true
-
 volumes:
   djc_caddy_data:
     external: true

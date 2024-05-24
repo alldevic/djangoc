@@ -20,7 +20,6 @@
 - tools pgadmin4: update config witwhout prune
 - add tools: celery flower
 - task pipeline?
-- dozzler to tools
 - short and long task runners?
   ...
 - squash commits

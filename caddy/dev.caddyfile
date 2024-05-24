@@ -9,10 +9,6 @@ localhost {
     }
 }
 
-dozzle.localhost {
-    reverse_proxy djc_dozzle:8080
-}
-
 minio.localhost: {
     handle_path /f75a0d8/* {
         reverse_proxy djc_minio:9001
@@ -25,4 +21,8 @@ minio.localhost: {
 
 pgadmin.localhost {
     reverse_proxy djc_pgadmin4:15432
+}
+
+dozzle.localhost {
+    reverse_proxy djc_dozzle:8080
 }
