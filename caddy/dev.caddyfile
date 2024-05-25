@@ -2,7 +2,7 @@ localhost {
     tls internal
     handle_path /static/* {
         root * /static
-        file_server
+        file_server browse
     }
     handle {
     reverse_proxy djc_server:8000
