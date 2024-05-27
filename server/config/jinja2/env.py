@@ -5,9 +5,10 @@ More: https://www.webforefront.com/django/setupjinjadataforalltemplates.html
 
 from typing import Any
 
-from django.contrib.staticfiles.storage import staticfiles_storage
+from django.templatetags.static import static
 from django.urls import reverse
-from jinja2 import Environment
+from flags.templatetags.feature_flags import flag_disabled, flag_enabled
+from jinja2 import Environment, pass_context
 
 
 class JinjaEnvironment(Environment):
@@ -16,5 +17,13 @@ class JinjaEnvironment(Environment):
     def __init__(self, **kwargs: Any) -> None:
         """Jinja2 environment constructor."""
         super().__init__(**kwargs)
-        self.globals["static"] = staticfiles_storage.url
-        self.globals["url"] = reverse
+
+        self.globals.update(
+            {
+                "static": static,
+                "url": reverse,
+                # django-flags support
+                "flag_enabled": pass_context(flag_enabled),
+                "flag_disabled": pass_context(flag_disabled),
+            }
+        )

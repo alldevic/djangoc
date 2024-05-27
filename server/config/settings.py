@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 import django_stubs_ext
+from jinja2 import StrictUndefined
 
 django_stubs_ext.monkeypatch()
 
@@ -42,6 +43,7 @@ def get_env(key: str, default: Any = None) -> Any:
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -83,9 +85,9 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "django_filters",
-    "django_jinja",
     "minio_storage",
     "redisboard",
+    "flags",
     "core",
 ]
 
@@ -104,14 +106,17 @@ ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
-        "BACKEND": "django_jinja.jinja2.Jinja2",
-        "DIRS": [],
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "DIRS": [BASE_DIR / "jinja_templates"],
         "APP_DIRS": True,
-        "OPTIONS": {},
+        "OPTIONS": {
+            "environment": "config.jinja2.env.JinjaEnvironment",
+            "undefined": StrictUndefined,
+        },
     },
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -257,6 +262,8 @@ MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "https://minio.localhost/m
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
+FLAGS: dict[str, list[Any]] = {"MY_FLAG": [{"condition": "boolean", "value": True}]}
+
 if DEBUG:
     if USE_DJDT:
         try:
@@ -271,6 +278,23 @@ if DEBUG:
                 "10.0.2.2",
             ]
             DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda _request: DEBUG}
+            DEBUG_TOOLBAR_PANELS = [
+                "debug_toolbar.panels.history.HistoryPanel",
+                "flags.panels.FlagsPanel",
+                "debug_toolbar.panels.versions.VersionsPanel",
+                "debug_toolbar.panels.timer.TimerPanel",
+                "debug_toolbar.panels.settings.SettingsPanel",
+                "debug_toolbar.panels.headers.HeadersPanel",
+                "debug_toolbar.panels.request.RequestPanel",
+                "flags.panels.FlagChecksPanel",
+                "debug_toolbar.panels.sql.SQLPanel",
+                "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+                "debug_toolbar.panels.templates.TemplatesPanel",
+                "debug_toolbar.panels.cache.CachePanel",
+                "debug_toolbar.panels.signals.SignalsPanel",
+                "debug_toolbar.panels.redirects.RedirectsPanel",
+                "debug_toolbar.panels.profiling.ProfilingPanel",
+            ]
         except ImportError:
             pass
 

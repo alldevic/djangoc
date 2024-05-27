@@ -489,19 +489,22 @@ files = [
 Django = ">=4.2"
 
 [[package]]
-name = "django-jinja"
-version = "2.11.0"
-description = "Jinja2 templating language integrated in Django."
+name = "django-flags"
+version = "5.0.13"
+description = "Feature flags for Django projects"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.7"
 files = [
-    {file = "django-jinja-2.11.0.tar.gz", hash = "sha256:47c06d3271e6b2f27d3596278af517bfe2e19c1eb36ae1c0b1cc302d7f0259af"},
-    {file = "django_jinja-2.11.0-py3-none-any.whl", hash = "sha256:cc4c72246a6e346aa0574e0c56c3e534c1a20ef47b8476f05d7287781f69a0a9"},
+    {file = "django-flags-5.0.13.tar.gz", hash = "sha256:ff6940cf37e07d6d0c4ac28c5420c8cfc478b62541473dba4aa02d600f7db9fc"},
+    {file = "django_flags-5.0.13-py2.py3-none-any.whl", hash = "sha256:52df74b86d93f5cb402190ad26b68a5ba0f127e9e016189f1a6f2e8ba3c06a42"},
 ]
 
 [package.dependencies]
-django = ">=3.2"
-jinja2 = ">=3"
+Django = ">=2.2"
+
+[package.extras]
+docs = ["mkdocs (>=0.17)", "mkdocs-rtd-dropdown (>=0.0.11)", "pymdown-extensions (>=4.11)"]
+testing = ["coverage (>=3.7.0)", "django-debug-toolbar (>=3.2,<4)", "jinja2"]
 
 [[package]]
 name = "django-minio-storage"
@@ -1826,4 +1829,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e79539327ab419ca7e16a5916e5805b5e003164da271c22a5377fade54b42b47"
+content-hash = "b964c57e78b1568de71272b484124105a2c50fa7fb8e0c9498c16b292ad52ee8"

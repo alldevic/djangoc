@@ -20,5 +20,7 @@
 - add tools: celery flower
 - task pipeline?
 - short and long task runners?
+- Fix djdt for jinja templates
+- Admin interface for django-flags
   ...
 - squash commits
