@@ -8,13 +8,25 @@ Hello page
 <h1>Hello world</h1>
 {% if flag_enabled("MY_FLAG") %}
 <div class="m-global-banner">
-  I’m the result of a feature.
+  MY_FLAG enabled.
 </div>
 {% endif %}
 
 {% if flag_disabled('MY_FLAG') %}
 <div class="m-global-banner">
-  I’m the result of a feature flag that is not enabled.
+  MY_FLAG is not enabled.
+</div>
+{% endif %}
+
+{% if flag_enabled("MY_FLAG2") %}
+<div class="m-global-banner">
+  MY_FLAG2 enabled.
+</div>
+{% endif %}
+
+{% if flag_disabled('MY_FLAG2') %}
+<div class="m-global-banner">
+  MY_FLAG2 is not enabled.
 </div>
 {% endif %}
 {% endblock content %}
