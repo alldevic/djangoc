@@ -262,7 +262,10 @@ MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "https://minio.localhost/m
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
-FLAGS: dict[str, list[None]] = {"MY_FLAG": [], "MY_FLAG2": []}
+FLAGS: dict[str, list[dict[str, str]]] = {
+    "MY_FLAG": [{"condition": "parameter", "value": "MY_FLAG="}],
+    "MY_FLAG2": [{"condition": "parameter", "value": "MY_FLAG2="}],
+}
 
 if DEBUG:
     if USE_DJDT:
