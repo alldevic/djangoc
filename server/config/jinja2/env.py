@@ -5,10 +5,9 @@ More: https://www.webforefront.com/django/setupjinjadataforalltemplates.html
 
 from typing import Any
 
-from django.templatetags.static import static
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse
-from flags.templatetags.feature_flags import flag_disabled, flag_enabled
-from jinja2 import Environment, pass_context
+from jinja2 import Environment
 
 
 class JinjaEnvironment(Environment):
@@ -20,10 +19,7 @@ class JinjaEnvironment(Environment):
 
         self.globals.update(
             {
-                "static": static,
+                "static": staticfiles_storage.url,
                 "url": reverse,
-                # django-flags support
-                "flag_enabled": pass_context(flag_enabled),
-                "flag_disabled": pass_context(flag_disabled),
             }
         )

@@ -87,7 +87,6 @@ INSTALLED_APPS = [
     "django_filters",
     "minio_storage",
     "redisboard",
-    "flags",
     "core",
 ]
 
@@ -262,11 +261,6 @@ MINIO_STORAGE_MEDIA_URL = get_env("MINIO_PUBLIC_URL", "https://minio.localhost/m
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
-FLAGS: dict[str, list[dict[str, str]]] = {
-    "MY_FLAG": [{"condition": "parameter", "value": "MY_FLAG="}],
-    "MY_FLAG2": [{"condition": "parameter", "value": "MY_FLAG2="}],
-}
-
 if DEBUG:
     if USE_DJDT:
         try:
@@ -283,13 +277,9 @@ if DEBUG:
             DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda _request: DEBUG}
             DEBUG_TOOLBAR_PANELS = [
                 "debug_toolbar.panels.history.HistoryPanel",
-                "flags.panels.FlagsPanel",
-                "debug_toolbar.panels.versions.VersionsPanel",
                 "debug_toolbar.panels.timer.TimerPanel",
-                "debug_toolbar.panels.settings.SettingsPanel",
                 "debug_toolbar.panels.headers.HeadersPanel",
                 "debug_toolbar.panels.request.RequestPanel",
-                "flags.panels.FlagChecksPanel",
                 "debug_toolbar.panels.sql.SQLPanel",
                 "debug_toolbar.panels.staticfiles.StaticFilesPanel",
                 "debug_toolbar.panels.templates.TemplatesPanel",

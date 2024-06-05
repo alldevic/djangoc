@@ -489,24 +489,6 @@ files = [
 Django = ">=4.2"
 
 [[package]]
-name = "django-flags"
-version = "5.0.13"
-description = "Feature flags for Django projects"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "django-flags-5.0.13.tar.gz", hash = "sha256:ff6940cf37e07d6d0c4ac28c5420c8cfc478b62541473dba4aa02d600f7db9fc"},
-    {file = "django_flags-5.0.13-py2.py3-none-any.whl", hash = "sha256:52df74b86d93f5cb402190ad26b68a5ba0f127e9e016189f1a6f2e8ba3c06a42"},
-]
-
-[package.dependencies]
-Django = ">=2.2"
-
-[package.extras]
-docs = ["mkdocs (>=0.17)", "mkdocs-rtd-dropdown (>=0.0.11)", "pymdown-extensions (>=4.11)"]
-testing = ["coverage (>=3.7.0)", "django-debug-toolbar (>=3.2,<4)", "jinja2"]
-
-[[package]]
 name = "django-minio-storage"
 version = "0.5.7"
 description = "Django file storage using the minio python client"
@@ -1829,4 +1811,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d8a82f23c78373b2ba50212fa68b4a39b52319575f9d93b88e243049f7cc4566"
+content-hash = "f6da2dd636173fa912996988b338857146e67a4b531069fa619a2382b627598c"
