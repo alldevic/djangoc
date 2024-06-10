@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from django.utils.safestring import SafeText
 from django.utils.translation import gettext_lazy as _
 
-from core.models import LogEntry, Person
+from core.models import LogEntry
 
 
 @admin.register(LogEntry)
@@ -51,8 +51,3 @@ class LogEntryAdmin(admin.ModelAdmin[LogEntry]):
             Escaped reuqest representation
         """
         return format_html("<pre>{0}</pre>", object.request_repr)
-
-
-@admin.register(Person)
-class PersonAdmin(admin.ModelAdmin[Person]):
-    """Admin for test model."""
