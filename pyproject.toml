@@ -26,8 +26,9 @@ docutils = "0.21.2"
 eventlet = "0.36.1"
 gunicorn = { version = "22.0.0", extras = ["eventlet"] }
 jinja2 = "3.1.4"
-pillow = "10.3.0"
-psycopg = { extras = ["binary"], version = "3.1.19" }
+orjson = "3.10.6"
+pillow = "10.4.0"
+psycopg = { extras = ["binary"], version = "3.2.1" }
 redis = {version = "5.0.7", extras = ["hiredis"]}
 
 [tool.poetry.group.dev.dependencies]
