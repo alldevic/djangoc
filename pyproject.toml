@@ -29,14 +29,14 @@ jinja2 = "3.1.4"
 orjson = "3.10.6"
 pillow = "10.4.0"
 psycopg = { extras = ["binary"], version = "3.2.1" }
-redis = {version = "5.0.7", extras = ["hiredis"]}
+redis = {version = "5.0.8", extras = ["hiredis"]}
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "1.8.2"
 django-debug-toolbar = "4.4.6"
 django-stubs = { version = "5.0.4", extras = ["compatible-mypy"] }
 djlint = "1.34.1"
-mypy = "1.11.0"
+mypy = "1.11.1"
 pyinstrument = "4.6.2"
 ruff = "0.5.5"
 
