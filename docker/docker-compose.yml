@@ -5,6 +5,7 @@ services:
       dockerfile: ./docker/server.dockerfile
       args:
         - DEBUG=${DJANGO_DEBUG}
+    image: djc_server:latest
     container_name: djc_server
     env_file: ../.env
     user: ${CURRENT_UID}
@@ -40,7 +41,7 @@ services:
     restart: on-failure
 
   djc_celery_worker:
-    image: docker-djc_server:latest
+    image: djc_server:latest
     container_name: djc_celery_worker
     env_file: ../.env
     user: ${CURRENT_UID}
@@ -64,7 +65,7 @@ services:
       /app/docker/entrypoint-worker.sh
 
   djc_celery_beat:
-    image: docker-djc_server:latest
+    image: djc_server:latest
     container_name: djc_celery_beat
     env_file: ../.env
     user: ${CURRENT_UID}
