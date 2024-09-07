@@ -54,7 +54,7 @@ build:
 pgadmin:
 	rm -f ./tools/pgadmin4/servers.json
 	echo "$$SERVERS_JSON" > ./tools/pgadmin4/servers.json
-	docker volume create djc_pgadmin4_data
+	./tools/docker/create_volumes.sh djc_pgadmin4_data
 	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans pgadmin
 
 dozzle:
@@ -64,10 +64,7 @@ rui:
 	docker compose $(COMPOSES) up -d --renew-anon-volumes --force-recreate --build --remove-orphans redisinsight
 
 up:
-	docker volume create djc_caddy_data
-	docker volume create djc_caddy_config
-	docker volume create djc_db_data
-	docker volume create djc_s3_data
+	./tools/docker/create_volumes.sh  djc_caddy_data djc_caddy_config djc_db_data djc_s3_data
 	docker compose $(MAIN_COMPOSE) build
 	docker compose $(MAIN_COMPOSE) up -d --renew-anon-volumes --force-recreate --build --remove-orphans
 
