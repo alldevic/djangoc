@@ -37,8 +37,8 @@ django-debug-toolbar = "4.4.6"
 django-stubs = { version = "5.0.4", extras = ["compatible-mypy"] }
 djlint = "1.35.2"
 mypy = "1.11.2"
-pyinstrument = "4.7.2"
-ruff = "0.6.3"
+pyinstrument = "4.7.3"
+ruff = "0.6.4"
 
 [tool.ruff.format]
 # verbose = true
