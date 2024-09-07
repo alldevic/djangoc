@@ -44,7 +44,11 @@ RUN poetry --version \
 
 COPY poetry.lock pyproject.toml ./
 
-RUN poetry install --no-ansi --no-interaction --no-root --no-cache --only main \
+RUN adduser --system --group app \
+    && mkdir /app/staticfiles \
+    && chown -R app:app $HOME
+
+    RUN poetry install --no-ansi --no-interaction --no-root --no-cache --only main \
     && if [[ "$DJANGO_DEBUG" == "TRUE" ]] || [[ "$DJANGO_DEBUG" == "True" ]] || [[ "$DJANGO_DEBUG" == "1" ]]; \
     then \
     poetry install --no-ansi --no-interaction --no-root --no-cache --only dev; \
@@ -53,5 +57,5 @@ RUN poetry install --no-ansi --no-interaction --no-root --no-cache --only main \
     && find /usr/lib/python*/* -name '__pycache__' | xargs rm -r \
     && rm -rf poetry.lock pyproject.toml /root/.cache  /root/.local
 
-
+USER app
 CMD ["./docker/entrypoint.sh"]
